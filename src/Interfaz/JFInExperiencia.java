@@ -44,7 +44,7 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
     //Se extrae lo que tenemos en la base de datos de la tabla EXPERIENCIA
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
-        String[] titulos = {"EMP_CEDULA", "CT_CODIGO", "AREA_COD"};
+        String[] titulos = {"NÚM. CÉDULA EMPLEADO", "CÓDIGO CENTRO", "CÓDIGO ÁREA"};
         String[] registros = new String[3];
         
         String querry = "SELECT * FROM EXPERIENCIA where EMP_CEDULA LIKE '%" + valor + "%'";

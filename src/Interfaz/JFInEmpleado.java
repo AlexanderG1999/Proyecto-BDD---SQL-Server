@@ -46,10 +46,13 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     //Se extrae lo que tenemos en la base de datos de la tabla EMPLEADO
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
-        String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO", "NÚM. HIJOS", "TELÉFONO"};
-        String[] registros = new String[6];
+        String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO", 
+            "NÚM. HIJOS", "TELÉFONO", "SALARIO", "FECHA DE CONTRATO"};
+        String[] registros = new String[8];
 
-        String querry = "SELECT * FROM empleado where EMP_CEDULA LIKE '%" + valor + "%'";
+        String querry = "SELECT E.EMP_CEDULA, E.CT_CODIGO, E.DEP_CODIGO, E.EMP_NOMBRE, E.EMP_NUMHIJOS, E.EMP_TELEFONO, N.EMP_SALARIO, N.EMP_FECHACONTRATO FROM EMPLEADO AS E\n" +
+                        "LEFT JOIN NOMINAS_EMPLEADOS AS N ON E.EMP_CEDULA = N.EMP_CEDULA "
+                      + "WHERE E.EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
@@ -64,6 +67,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 registros[3] = rs.getString("EMP_NOMBRE");
                 registros[4] = rs.getString("EMP_NUMHIJOS");
                 registros[5] = rs.getString("EMP_TELEFONO");
+                registros[6] = rs.getString("EMP_SALARIO");
+                registros[7] = rs.getString("EMP_FECHACONTRATO");
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableEmpleado.setModel(model);//Seteamos la tabla con los datos 
@@ -90,6 +95,12 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JTFSalario.setEnabled(false);
         this.JDCFechaContra.setEnabled(false);
         this.JBSearchCT.setEnabled(false);
+        
+        this.JTFNumCedEmp.setEditable(true);
+        this.JTFNomApeEmp.setEditable(true);
+        this.JTFNumHijos.setEditable(true);
+        this.JTFTelef.setEditable(true);
+        this.JTFSalario.setEditable(true);
 
         this.JTFCedulaBuscador.setText("");
         this.JTFNomApeEmp.setText("");
@@ -100,6 +111,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JTFTelef.setText("");
         this.JTFSalario.setText("");
         this.JDCFechaContra.setCalendar(null);
+        
+        cargar("");
     }
 
     @SuppressWarnings("unchecked")
@@ -547,11 +560,9 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             //Cuando el usuario verifica que SI desea guardar al Empleado
             if (empleado.guardarEmpleado(cn)) {
                 this.opcionAgain();
-                cargar("");
                 //Cuando el usuario verifica que NO desea guardar al Empleado   
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         } else {//AuxBoton = 2 es decir modificar empleado
             //Cuando el usuario verifica que SI desea guardar al Empleado
@@ -560,11 +571,9 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 this.JTFNomDep.setEditable(true);
                 this.JTFNumCedEmp.setEditable(true);
                 this.opcionAgain();
-                cargar("");
                 //Cuando el usuario verifica que NO desea guardar al Empleado   
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         }
     }//GEN-LAST:event_JBGuardarCambiosActionPerformed
@@ -617,13 +626,11 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JTFCedulaBuscador.setText("");
 
             if (Empleado.eliminarEmpleado(valor, cn)) {
-                cargar("");
                 this.JTFCedulaBuscador.setText("");
                 this.opcionAgain();
             } else {
                 this.opcionAgain();
                 this.JTFCedulaBuscador.setText("");
-                cargar("");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
@@ -673,8 +680,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 // Error, la cadena de texto no se puede convertir en fecha.
                 System.out.println(e);
             }
-
-            this.JTFCedulaBuscador.setText("");
+            
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }

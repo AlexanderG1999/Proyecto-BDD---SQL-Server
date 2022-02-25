@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
  */
 public class JFMenuPrincipal extends javax.swing.JFrame {
 
-    //JFInEmpleado jfEmpleado;
+    JFInEmpleado jfEmpleado;
     JFInArea jfArea;
     JFInCT jfCT;
     JFInDepartamento jfDep;
@@ -36,8 +36,9 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
         JBExp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("NOMBRE EMPRESA");
+        setTitle("EQUIPO ALFA BUENA MARAVILLA ONDA DINAMITA ESCUADRÓN LOBO");
 
+        JBSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/exit.png"))); // NOI18N
         JBSalir.setText("Salir");
         JBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,6 +57,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        JBEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/employees.png"))); // NOI18N
         JBEmpleado.setText("Empleado");
         JBEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +65,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        JBCT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/business-center.png"))); // NOI18N
         JBCT.setText("Centro de Trabajo");
         JBCT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +73,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        JBDep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/department.png"))); // NOI18N
         JBDep.setText("Departamento");
         JBDep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +81,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        JBArea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/remote-access.png"))); // NOI18N
         JBArea.setText("Área");
         JBArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +89,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        JBHijos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/father-and-son.png"))); // NOI18N
         JBHijos.setText("Hijos");
         JBHijos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +97,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        JBExp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/expert.png"))); // NOI18N
         JBExp.setText("Experiencia");
         JBExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,14 +111,14 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(JBSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                    .addComponent(JBEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBCT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBDep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBHijos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBExp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JBEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBArea, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBDep, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBCT, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBHijos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBExp, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(JEscritorio)
                 .addContainerGap())
@@ -123,20 +130,20 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JEscritorio)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(JBEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JBEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(JBHijos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JBHijos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(JBCT, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JBCT, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(JBDep, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JBDep, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(JBArea, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JBArea, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(JBExp, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JBExp, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 257, Short.MAX_VALUE)))
+                        .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 68, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -148,11 +155,11 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JBSalirActionPerformed
 
     private void JBEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEmpleadoActionPerformed
-        /*jfEmpleado = new JFInEmpleado();
+        jfEmpleado = new JFInEmpleado();
         this.JEscritorio.removeAll();
         this.JEscritorio.repaint();
         JEscritorio.add(jfEmpleado);
-        jfEmpleado.show();*/
+        jfEmpleado.show();
     }//GEN-LAST:event_JBEmpleadoActionPerformed
 
     private void JBHijosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBHijosActionPerformed

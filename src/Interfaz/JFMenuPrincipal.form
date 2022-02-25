@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="NOMBRE EMPRESA"/>
+    <Property name="title" type="java.lang.String" value="EQUIPO ALFA BUENA MARAVILLA ONDA DINAMITA ESCUADR&#xd3;N LOBO"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -26,14 +26,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="JBSalir" pref="195" max="32767" attributes="0"/>
-                  <Component id="JBEmpleado" max="32767" attributes="0"/>
-                  <Component id="JBCT" max="32767" attributes="0"/>
-                  <Component id="JBDep" max="32767" attributes="0"/>
-                  <Component id="JBArea" max="32767" attributes="0"/>
-                  <Component id="JBHijos" max="32767" attributes="0"/>
-                  <Component id="JBExp" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="JBEmpleado" min="-2" pref="195" max="-2" attributes="0"/>
+                  <Component id="JBSalir" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                  <Component id="JBArea" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                  <Component id="JBDep" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                  <Component id="JBCT" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                  <Component id="JBHijos" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                  <Component id="JBExp" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="JEscritorio" max="32767" attributes="0"/>
@@ -48,20 +48,20 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="JEscritorio" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="JBEmpleado" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="JBEmpleado" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="JBHijos" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="JBHijos" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="JBCT" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="JBCT" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="JBDep" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="JBDep" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="JBArea" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="JBArea" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="JBExp" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="JBExp" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="JBSalir" min="-2" pref="43" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="257" max="32767" attributes="0"/>
+                      <Component id="JBSalir" min="-2" pref="70" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="68" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -72,6 +72,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="JBSalir">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/exit.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Salir"/>
       </Properties>
       <Events>
@@ -95,6 +98,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="JBEmpleado">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/employees.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Empleado"/>
       </Properties>
       <Events>
@@ -103,6 +109,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="JBCT">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/business-center.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Centro de Trabajo"/>
       </Properties>
       <Events>
@@ -111,6 +120,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="JBDep">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/department.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Departamento"/>
       </Properties>
       <Events>
@@ -119,6 +131,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="JBArea">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/remote-access.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="&#xc1;rea"/>
       </Properties>
       <Events>
@@ -127,6 +142,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="JBHijos">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/father-and-son.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Hijos"/>
       </Properties>
       <Events>
@@ -135,6 +153,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="JBExp">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/expert.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Experiencia"/>
       </Properties>
       <Events>

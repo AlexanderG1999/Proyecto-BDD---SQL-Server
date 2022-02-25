@@ -40,10 +40,13 @@ public class JFListaEmpleados extends javax.swing.JFrame {
     //Se extrae lo que tenemos en la base de datos de la tabla EMPLEADO
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
-        String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO", "NÚM. HIJOS", "TELÉFONO"};
-        String[] registros = new String[6];
+        String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO",
+            "NÚM. HIJOS", "TELÉFONO", "SALARIO", "FECHA DE CONTRATO"};
+        String[] registros = new String[8];
 
-        String querry = "SELECT * FROM empleado where EMP_CEDULA LIKE '%" + valor + "%'";
+        String querry = "SELECT E.EMP_CEDULA, E.CT_CODIGO, E.DEP_CODIGO, E.EMP_NOMBRE, E.EMP_NUMHIJOS, E.EMP_TELEFONO, N.EMP_SALARIO, N.EMP_FECHACONTRATO FROM EMPLEADO AS E\n"
+                + "INNER JOIN NOMINAS_EMPLEADOS AS N ON E.EMP_CEDULA = N.EMP_CEDULA "
+                + "WHERE EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
@@ -58,6 +61,8 @@ public class JFListaEmpleados extends javax.swing.JFrame {
                 registros[3] = rs.getString("EMP_NOMBRE");
                 registros[4] = rs.getString("EMP_NUMHIJOS");
                 registros[5] = rs.getString("EMP_TELEFONO");
+                registros[6] = rs.getString("EMP_SALARIO");
+                registros[7] = rs.getString("EMP_FECHACONTRATO");
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableEmpleado.setModel(model);//Seteamos la tabla con los datos 
@@ -173,7 +178,7 @@ public class JFListaEmpleados extends javax.swing.JFrame {
                 JFInCT.JTFNumCedulaJefe.setText(JTableEmpleado.getValueAt(fila, 0).toString());
                 this.dispose();
             }
-            if(this.aux.equalsIgnoreCase("Experiencia")){
+            if (this.aux.equalsIgnoreCase("Experiencia")) {
                 JFInExperiencia.JTFNumCedEmp.setText(JTableEmpleado.getValueAt(fila, 0).toString());
                 this.dispose();
             }
