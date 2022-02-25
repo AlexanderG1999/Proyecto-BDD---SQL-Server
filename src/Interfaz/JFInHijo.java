@@ -18,29 +18,43 @@ import javax.swing.table.DefaultTableModel;
  * @author GRUPO 4
  */
 public class JFInHijo extends javax.swing.JInternalFrame {
+
     DefaultTableModel model;//Modifica un objeto del tipo jtable
     Conexion cc;
     Connection cn;
     private int auxiliarBoton;
-    private int sucursal;
 
     public JFInHijo() {
         initComponents();
+        this.JBGuardarCambios.setEnabled(false);
+        this.JBCancelarCambios.setEnabled(false);
+
+        this.JTFCodHijo.setEnabled(false);
+        this.JTFCodCT.setEnabled(false);
+        this.JTFNumCedTutor.setEnabled(false);
+        this.JTFNombApe.setEnabled(false);
+        this.JDCFechaNac.setEnabled(false);
+        this.JBSearchCT.setEnabled(false);
+        this.JBSearchTutor.setEnabled(false);
+
+        cc = new Conexion();
+        cn = cc.getConexion();
+        cargar("");
     }
-    
+
     //Se extrae lo que tenemos en la base de datos de la tabla HIJO
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
         String[] titulos = {"CÓDIGO", "CÓDIGO CENTRO", "NÚM. CÉDULA TUTOR", "NOMBRE HIJO", "FECHA DE NACIMIENTO"};
         String[] registros = new String[5];
-        
+
         String querry = "SELECT * FROM HIJOS where HIJO_CODIGO LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(querry);
-            
+
             while (rs.next()) {
                 //Se da la informacion a cada columna que se extrae de rs
                 registros[0] = rs.getString("HIJO_CODIGO");
@@ -48,7 +62,7 @@ public class JFInHijo extends javax.swing.JInternalFrame {
                 registros[2] = rs.getString("EMP_CEDULA");
                 registros[3] = rs.getString("HIJO_NOMBRE");
                 registros[4] = rs.getString("HIJO_FECHANAC");
-                
+
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableHijo.setModel(model);//Seteamos la tabla con los datos 
@@ -79,7 +93,7 @@ public class JFInHijo extends javax.swing.JInternalFrame {
         this.JTFNombApe.setText("");
         this.JDCFechaNac.setCalendar(null);
         this.JBSearchCT.setText("");
-        this.JBSearchTutor.setText("");        
+        this.JBSearchTutor.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -445,15 +459,17 @@ public class JFInHijo extends javax.swing.JInternalFrame {
 
     private void JBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarCambiosActionPerformed
         int codigoHijo = Integer.parseInt(this.JTFCodHijo.getText());
-        int centroTrabajo = this.sucursal;
+        int centroTrabajo = Integer.parseInt(this.JTFCodCT.getText());
         int numCITutor = Integer.parseInt(this.JTFNumCedTutor.getText());
         String nombreHijo = this.JTFNombApe.getText();
         Date date = JDCFechaNac.getDate();//Se crea un objeto del tipo date y se extrae del jCalendar
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//Se le da un formato de la base de datos
-        String fechaNac = formato.format(date);//Se guarda como String y se le da el formato de arriba 
+        String fechaNac = formato.format(date);//Se guarda como String y se le da el formato de arriba
+
+        Hijo hijo = new Hijo(codigoHijo, centroTrabajo, numCITutor, nombreHijo, fechaNac);
+
         //Opcion Guardar hijo
         if (auxiliarBoton == 1) {
-            Hijo hijo = new Hijo(codigoHijo, centroTrabajo, numCITutor, nombreHijo, fechaNac);
             //Cuando el usuario verifica que SI desea guardar al hijo
             if (hijo.guardarHijo(cn)) {
                 this.opcionAgain();
@@ -464,8 +480,6 @@ public class JFInHijo extends javax.swing.JInternalFrame {
                 cargar("");
             }
         } else {//AuxBoton = 2 es decir modificar hijo
-            //Opcion de modificar hijo
-            Hijo hijo = new Hijo(codigoHijo, centroTrabajo, numCITutor, nombreHijo, fechaNac);
             //Cuando el usuario verifica que SI desea guardar al hijo
             if (hijo.modificarHijo(codigoHijo, cn)) {
                 this.JTFCodCT.setEditable(true);
@@ -482,11 +496,11 @@ public class JFInHijo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBGuardarCambiosActionPerformed
 
     private void JBCancelarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarCambiosActionPerformed
-        opcionAgain();       
+        opcionAgain();
     }//GEN-LAST:event_JBCancelarCambiosActionPerformed
 
     private void JBBorrarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBorrarRegActionPerformed
-       int fila = JTableHijo.getSelectedRow();
+        int fila = JTableHijo.getSelectedRow();
         if (fila >= 0) {
             //Activando cajas de texto y botones
             int valor = Integer.parseInt(JTableHijo.getValueAt(fila, 0).toString());
@@ -519,7 +533,7 @@ public class JFInHijo extends javax.swing.JInternalFrame {
                 // Error, la cadena de texto no se puede convertir en fecha.
                 System.out.println(e);
             }
-            
+
             this.JTFCodBuscador.setText("");
 
             if (Hijo.eliminarHijo(valor, cn)) {
@@ -533,7 +547,7 @@ public class JFInHijo extends javax.swing.JInternalFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
-        } 
+        }
     }//GEN-LAST:event_JBBorrarRegActionPerformed
 
     private void JTFCodBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFCodBuscadorKeyReleased
@@ -573,11 +587,11 @@ public class JFInHijo extends javax.swing.JInternalFrame {
                 // Error, la cadena de texto no se puede convertir en fecha.
                 System.out.println(e);
             }
-            
+
             this.JTFCodBuscador.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
-        } 
+        }
     }//GEN-LAST:event_JBModificarRegActionPerformed
 
     private void JTFNombApeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFNombApeActionPerformed
@@ -585,18 +599,18 @@ public class JFInHijo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JTFNombApeActionPerformed
 
     private void JTFCodHijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFCodHijoActionPerformed
-        this.JTFCodHijo.requestFocus();
+        this.JTFCodHijo.transferFocus();
     }//GEN-LAST:event_JTFCodHijoActionPerformed
 
     private void JBSearchTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchTutorActionPerformed
         JFListaEmpleados jdEmp = new JFListaEmpleados();
-        jdEmp.setAux(this.sucursal);
+        jdEmp.setAux("Hijo");
         jdEmp.setVisible(true);
     }//GEN-LAST:event_JBSearchTutorActionPerformed
 
     private void JBSearchCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchCTActionPerformed
         JFListaCT jdCT = new JFListaCT();
-        jdCT.setAux(this.sucursal);
+        jdCT.setAux("Hijo");
         jdCT.setVisible(true);
     }//GEN-LAST:event_JBSearchCTActionPerformed
 
@@ -612,10 +626,10 @@ public class JFInHijo extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser JDCFechaNac;
     private javax.swing.JPanel JPanelPrincipal;
     private javax.swing.JTextField JTFCodBuscador;
-    private javax.swing.JTextField JTFCodCT;
+    public static javax.swing.JTextField JTFCodCT;
     private javax.swing.JTextField JTFCodHijo;
     private javax.swing.JTextField JTFNombApe;
-    private javax.swing.JTextField JTFNumCedTutor;
+    public static javax.swing.JTextField JTFNumCedTutor;
     public static javax.swing.JTable JTableHijo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

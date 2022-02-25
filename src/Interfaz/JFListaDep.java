@@ -17,20 +17,20 @@ public class JFListaDep extends javax.swing.JFrame {
     DefaultTableModel model;
     Conexion cc;
     Connection cn;
-    private int aux;
+    private String aux; //Conocer que JFInterno esta solicitando información
 
     public JFListaDep() {
         initComponents();
         this.setLocationRelativeTo(null);
         cc = new Conexion();
-
+        cn = cc.getConexion();
         //Metodo para cerrar la ventana especifica en la que se encuentra
         setDefaultCloseOperation(JFListaDep.DISPOSE_ON_CLOSE);
+        cargar("");
     }
 
     //Se extrae lo que tenemos en la base de datos de la tabla DEPARTAMENTO
     public void cargar(String valor) {
-        cn = cc.getConexion(aux);
         //Titulos de cada Cl y Fl
         String[] titulos = {"CÓDIGO DEPARTAMENTO", "CÓDIGO CENTRO", "NOMBRE DEPARTAMENTO", "PRESUPUESTO ANUAL"};
         String[] registros = new String[4];
@@ -57,11 +57,11 @@ public class JFListaDep extends javax.swing.JFrame {
         }
     }
 
-    public int getAux() {
+    public String getAux() {
         return aux;
     }
 
-    public void setAux(int aux) {
+    public void setAux(String aux) {
         this.aux = aux;
     }
 
@@ -75,7 +75,6 @@ public class JFListaDep extends javax.swing.JFrame {
         JBAceptar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         JTableDep = new javax.swing.JTable();
-        JBCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,13 +111,6 @@ public class JFListaDep extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(JTableDep);
 
-        JBCargar.setText("CARGAR");
-        JBCargar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBCargarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -133,8 +125,7 @@ public class JFListaDep extends javax.swing.JFrame {
                         .addComponent(JTFCodFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(JBAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JBCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -144,8 +135,7 @@ public class JFListaDep extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFCodFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(JBAceptar)
-                    .addComponent(JBCargar))
+                    .addComponent(JBAceptar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addContainerGap())
@@ -178,18 +168,15 @@ public class JFListaDep extends javax.swing.JFrame {
     private void JBAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAceptarActionPerformed
         int fila = JTableDep.getSelectedRow();
         if (fila >= 0) {
-
-            JFInEmpleado.JTFNomDep.setText(JTableDep.getValueAt(fila, 0).toString());
-            this.dispose();
+            if (this.aux.equalsIgnoreCase("Empleado")) {
+                JFInEmpleado.JTFNomDep.setText(JTableDep.getValueAt(fila, 0).toString());
+                this.dispose();
+            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }
     }//GEN-LAST:event_JBAceptarActionPerformed
-
-    private void JBCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarActionPerformed
-        cargar("");
-    }//GEN-LAST:event_JBCargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,7 +218,6 @@ public class JFListaDep extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAceptar;
-    private javax.swing.JButton JBCargar;
     private javax.swing.JTextField JTFCodFiltrar;
     private javax.swing.JTable JTableDep;
     private javax.swing.JLabel jLabel1;

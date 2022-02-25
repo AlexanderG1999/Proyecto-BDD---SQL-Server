@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
  */
 public class JFMenuPrincipal extends javax.swing.JFrame {
 
-    JFInEmpleado jfEmpleado;
+    //JFInEmpleado jfEmpleado;
     JFInArea jfArea;
     JFInCT jfCT;
     JFInDepartamento jfDep;
@@ -19,7 +19,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/epn.png")).getImage());
         this.setExtendedState(MAXIMIZED_BOTH);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -148,11 +148,11 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JBSalirActionPerformed
 
     private void JBEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEmpleadoActionPerformed
-        jfEmpleado = new JFInEmpleado(1);
+        /*jfEmpleado = new JFInEmpleado();
         this.JEscritorio.removeAll();
         this.JEscritorio.repaint();
         JEscritorio.add(jfEmpleado);
-        jfEmpleado.show();
+        jfEmpleado.show();*/
     }//GEN-LAST:event_JBEmpleadoActionPerformed
 
     private void JBHijosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBHijosActionPerformed
@@ -164,7 +164,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JBHijosActionPerformed
 
     private void JBCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCTActionPerformed
-        jfCT = new JFInCT(1);
+        jfCT = new JFInCT();
         this.JEscritorio.removeAll();
         this.JEscritorio.repaint();
         JEscritorio.add(jfCT);
@@ -172,7 +172,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JBCTActionPerformed
 
     private void JBDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBDepActionPerformed
-        jfDep = new JFInDepartamento(3);
+        jfDep = new JFInDepartamento();
         this.JEscritorio.removeAll();
         this.JEscritorio.repaint();
         JEscritorio.add(jfDep);
@@ -180,7 +180,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JBDepActionPerformed
 
     private void JBAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAreaActionPerformed
-        jfArea = new JFInArea(1);
+        jfArea = new JFInArea();
         this.JEscritorio.removeAll();
         this.JEscritorio.repaint();
         JEscritorio.add(jfArea);
@@ -188,7 +188,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JBAreaActionPerformed
 
     private void JBExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBExpActionPerformed
-        //jfExp = new JFInExperiencia(1);
+        jfExp = new JFInExperiencia(1);
         this.JEscritorio.removeAll();
         this.JEscritorio.repaint();
         JEscritorio.add(jfExp);

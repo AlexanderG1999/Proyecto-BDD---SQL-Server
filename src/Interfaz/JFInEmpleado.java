@@ -22,15 +22,14 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     Conexion cc;
     Connection cn;
     private int auxiliarBoton;
-    private int sucursal;
 
-    public JFInEmpleado(int aux) {
+    public JFInEmpleado() {
         initComponents();
         this.JBGuardarCambios.setEnabled(false);
         this.JBCancelarCambios.setEnabled(false);
 
         this.JTFNomApeEmp.setEnabled(false);
-        this.JTFNomCT.setEnabled(false);
+        this.JTFCodCT.setEnabled(false);
         this.JTFNomDep.setEnabled(false);
         this.JTFNumCedEmp.setEnabled(false);
         this.JTFNumHijos.setEnabled(false);
@@ -40,8 +39,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JDCFechaContra.setEnabled(false);
         this.JBSearchCT.setEnabled(false);
         cc = new Conexion();
-        cn = cc.getConexion(aux);
-        this.sucursal = aux;
+        cn = cc.getConexion();
         cargar("");
     }
 
@@ -83,7 +81,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JBCancelarCambios.setEnabled(false);
 
         this.JTFNomApeEmp.setEnabled(false);
-        this.JTFNomCT.setEnabled(false);
+        this.JTFCodCT.setEnabled(false);
         this.JTFNomDep.setEnabled(false);
         this.JTFNumCedEmp.setEnabled(false);
         this.JTFNumHijos.setEnabled(false);
@@ -95,7 +93,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
 
         this.JTFCedulaBuscador.setText("");
         this.JTFNomApeEmp.setText("");
-        this.JTFNomCT.setText("");
+        this.JTFCodCT.setText("");
         this.JTFNomDep.setText("");
         this.JTFNumCedEmp.setText("");
         this.JTFNumHijos.setText("");
@@ -132,7 +130,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         JTFNumHijos = new javax.swing.JTextField();
         JTFNumCedEmp = new javax.swing.JTextField();
         JTFTelef = new javax.swing.JTextField();
-        JTFNomCT = new javax.swing.JTextField();
+        JTFCodCT = new javax.swing.JTextField();
         JBSearchDep = new javax.swing.JButton();
         JTFNomDep = new javax.swing.JTextField();
         JBSearchCT = new javax.swing.JButton();
@@ -380,7 +378,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                                 .addComponent(JTFTelef, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(JTFNumHijos, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(JTFNomApeEmp, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(JTFNomCT, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JTFCodCT, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(JTFNomDep, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -403,7 +401,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JTFNomCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JTFCodCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -507,8 +505,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JBCancelarCambios.setEnabled(true);
 
         this.JTFNomApeEmp.setEnabled(true);
-        JTFNomCT.setEnabled(true);
-        this.JTFNomCT.setEditable(false);
+        JTFCodCT.setEnabled(true);
+        this.JTFCodCT.setEditable(false);
         JTFNomDep.setEnabled(true);
         this.JTFNomDep.setEditable(false);
         this.JTFNumCedEmp.setEnabled(true);
@@ -531,20 +529,21 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JTFNumHijosActionPerformed
 
     private void JBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarCambiosActionPerformed
+        int numCed = Integer.parseInt(this.JTFNumCedEmp.getText());
+        int centroTrabajo = Integer.parseInt(JTFCodCT.getText());
+        int depCodigo = Integer.parseInt(this.JTFNomDep.getText());
+        String nombreEmp = this.JTFNomApeEmp.getText();
+        int numHijos = Integer.parseInt(this.JTFNumHijos.getText());
+        int telefono = Integer.parseInt(this.JTFTelef.getText());
+        float salario = Float.parseFloat(this.JTFSalario.getText());
+        Date date = JDCFechaContra.getDate();//Se crea un objeto del tipo date y se extrae del jCalendar
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//Se le da un formato de la base de datos
+        String fechaContrato = formato.format(date);//Se guarda como String y se le da el formato de arriba 
+
+        Empleado empleado = new Empleado(numCed, depCodigo, depCodigo, nombreEmp, numHijos, telefono, salario, fechaContrato);
+
         //Opcion Guardar Empleado
         if (auxiliarBoton == 1) {
-            int numCed = Integer.parseInt(this.JTFNumCedEmp.getText());
-            int centroTrabajo = this.sucursal;
-            int depCodigo = Integer.parseInt(this.JTFNomDep.getText());
-            String nombreEmp = this.JTFNomApeEmp.getText();
-            int numHijos = Integer.parseInt(this.JTFNumHijos.getText());
-            int telefono = Integer.parseInt(this.JTFTelef.getText());
-            float salario = Float.parseFloat(this.JTFSalario.getText());
-            Date date = JDCFechaContra.getDate();//Se crea un objeto del tipo date y se extrae del jCalendar
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//Se le da un formato de la base de datos
-            String fechaContrato = formato.format(date);//Se guarda como String y se le da el formato de arriba 
-
-            Empleado empleado = new Empleado(numCed, depCodigo, depCodigo, nombreEmp, numHijos, telefono, salario, fechaContrato);
             //Cuando el usuario verifica que SI desea guardar al Empleado
             if (empleado.guardarEmpleado(cn)) {
                 this.opcionAgain();
@@ -555,22 +554,9 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 cargar("");
             }
         } else {//AuxBoton = 2 es decir modificar empleado
-            //Opcion de modificar Empleado
-            int numCed = Integer.parseInt(this.JTFNumCedEmp.getText());
-            int centroTrabajo = Integer.parseInt(this.JTFNomCT.getText());
-            int depCodigo = Integer.parseInt(this.JTFNomDep.getText());
-            String nombreEmp = this.JTFNomApeEmp.getText();
-            int numHijos = Integer.parseInt(this.JTFNumHijos.getText());
-            int telefono = Integer.parseInt(this.JTFTelef.getText());
-            float salario = Float.parseFloat(this.JTFSalario.getText());
-            Date date = JDCFechaContra.getDate();//Se crea un objeto del tipo date y se extrae del jCalendar
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//Se le da un formato de la base de datos
-            String fechaContrato = formato.format(date);//Se guarda como String y se le da el formato de arriba 
-            
-            Empleado empleado = new Empleado(numCed, depCodigo, depCodigo, nombreEmp, numHijos, telefono, salario, fechaContrato);
             //Cuando el usuario verifica que SI desea guardar al Empleado
             if (empleado.modificarEmpleado(numCed, cn)) {
-                this.JTFNomCT.setEditable(true);
+                this.JTFCodCT.setEditable(true);
                 this.JTFNomDep.setEditable(true);
                 this.JTFNumCedEmp.setEditable(true);
                 this.opcionAgain();
@@ -601,7 +587,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JBCancelarCambios.setEnabled(false);
             this.JTFCedulaBuscador.setEnabled(true);
             this.JTFNomApeEmp.setEnabled(false);
-            this.JTFNomCT.setEnabled(false);
+            this.JTFCodCT.setEnabled(false);
             this.JTFNomDep.setEnabled(false);
             this.JTFNumCedEmp.setEnabled(false);
             this.JTFNumHijos.setEnabled(false);
@@ -613,7 +599,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
 
             //Pasando datos de la tabla a cada caja de texto
             this.JTFNumCedEmp.setText(JTableEmpleado.getValueAt(fila, 0).toString());
-            this.JTFNomCT.setText(JTableEmpleado.getValueAt(fila, 1).toString());
+            this.JTFCodCT.setText(JTableEmpleado.getValueAt(fila, 1).toString());
             this.JTFNomDep.setText(JTableEmpleado.getValueAt(fila, 2).toString());
             this.JTFNomApeEmp.setText(JTableEmpleado.getValueAt(fila, 3).toString());
             this.JTFNumHijos.setText(JTableEmpleado.getValueAt(fila, 4).toString());
@@ -627,7 +613,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 // Error, la cadena de texto no se puede convertir en fecha.
                 System.out.println(e);
             }
-            
+
             this.JTFCedulaBuscador.setText("");
 
             if (Empleado.eliminarEmpleado(valor, cn)) {
@@ -661,7 +647,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JBCancelarCambios.setEnabled(true);
             this.JTFCedulaBuscador.setEnabled(true);
             this.JTFNomApeEmp.setEnabled(true);
-            this.JTFNomCT.setEditable(false);
+            this.JTFCodCT.setEditable(false);
             this.JTFNomDep.setEditable(false);
             this.JTFNumCedEmp.setEditable(false);
             this.JBSearchCT.setEnabled(true);
@@ -670,11 +656,10 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JBSearchDep.setEnabled(true);
             this.JTFSalario.setEnabled(true);
             this.JDCFechaContra.setEnabled(true);
-            
 
             //Pasando datos de la tabla a cada caja de texto
             this.JTFNumCedEmp.setText(JTableEmpleado.getValueAt(fila, 0).toString());
-            this.JTFNomCT.setText(JTableEmpleado.getValueAt(fila, 1).toString());
+            this.JTFCodCT.setText(JTableEmpleado.getValueAt(fila, 1).toString());
             this.JTFNomDep.setText(JTableEmpleado.getValueAt(fila, 2).toString());
             this.JTFNomApeEmp.setText(JTableEmpleado.getValueAt(fila, 3).toString());
             this.JTFNumHijos.setText(JTableEmpleado.getValueAt(fila, 4).toString());
@@ -706,7 +691,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
 
     private void JBSearchDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchDepActionPerformed
         JFListaDep jdDep = new JFListaDep();
-        jdDep.setAux(this.sucursal);
+        jdDep.setAux("Empleado");
         jdDep.setVisible(true);
     }//GEN-LAST:event_JBSearchDepActionPerformed
 
@@ -720,7 +705,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
 
     private void JBSearchCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchCTActionPerformed
         JFListaCT jdCT = new JFListaCT();
-        jdCT.setAux(this.sucursal);
+        jdCT.setAux("Empleado");
         jdCT.setVisible(true);
     }//GEN-LAST:event_JBSearchCTActionPerformed
 
@@ -736,8 +721,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser JDCFechaContra;
     private javax.swing.JPanel JPanelPrincipal;
     private javax.swing.JTextField JTFCedulaBuscador;
+    public static javax.swing.JTextField JTFCodCT;
     private javax.swing.JTextField JTFNomApeEmp;
-    public static javax.swing.JTextField JTFNomCT;
     public static javax.swing.JTextField JTFNomDep;
     private javax.swing.JTextField JTFNumCedEmp;
     private javax.swing.JTextField JTFNumHijos;

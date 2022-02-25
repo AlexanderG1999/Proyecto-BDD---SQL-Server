@@ -22,9 +22,8 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
     Conexion cc;
     Connection cn;
     private int auxiliarBoton;
-    private int sucursal;
 
-    public JFInDepartamento(int aux) {
+    public JFInDepartamento() {
         initComponents();
         this.JBGuardarCambios.setEnabled(false);
         this.JBCancelarCambios.setEnabled(false);
@@ -34,8 +33,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         this.JTFNomDep.setEnabled(false);
         this.JTFPresupAnual.setEnabled(false);
         cc = new Conexion();
-        cn = cc.getConexion(aux);
-        this.sucursal = aux;
+        cn = cc.getConexion();
         cargar("");
     }
 
@@ -528,8 +526,8 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBModificarRegActionPerformed
 
     private void JBSearchCodCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchCodCTActionPerformed
-        JFListaDep lista = new JFListaDep();
-        lista.setAux(this.sucursal);
+        JFListaCT lista = new JFListaCT();
+        lista.setAux("Departamento");
         lista.setVisible(true);
     }//GEN-LAST:event_JBSearchCodCTActionPerformed
 

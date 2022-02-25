@@ -17,20 +17,28 @@ public class JFListaEmpleados extends javax.swing.JFrame {
     DefaultTableModel model;
     Conexion cc;
     Connection cn;
-    private int aux;
+    private String aux; //Conocer que JFInterno esta solicitando información
 
     public JFListaEmpleados() {
         initComponents();
         this.setLocationRelativeTo(null);
         cc = new Conexion();
-
+        cn = cc.getConexion();
+        cargar("");
         //Metodo para cerrar la ventana especifica en la que se encuentra
         setDefaultCloseOperation(JFListaEmpleados.DISPOSE_ON_CLOSE);
     }
 
+    public String getAux() {
+        return aux;
+    }
+
+    public void setAux(String aux) {
+        this.aux = aux;
+    }
+
     //Se extrae lo que tenemos en la base de datos de la tabla EMPLEADO
     public void cargar(String valor) {
-        cn = cc.getConexion(aux);
         //Titulos de cada Cl y Fl
         String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO", "NÚM. HIJOS", "TELÉFONO"};
         String[] registros = new String[6];
@@ -58,14 +66,6 @@ public class JFListaEmpleados extends javax.swing.JFrame {
         }
     }
 
-    public int getAux() {
-        return aux;
-    }
-
-    public void setAux(int aux) {
-        this.aux = aux;
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,7 +76,6 @@ public class JFListaEmpleados extends javax.swing.JFrame {
         JBAceptar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         JTableEmpleado = new javax.swing.JTable();
-        JBCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,13 +112,6 @@ public class JFListaEmpleados extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(JTableEmpleado);
 
-        JBCargar.setText("CARGAR");
-        JBCargar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBCargarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,8 +126,7 @@ public class JFListaEmpleados extends javax.swing.JFrame {
                         .addComponent(JTFCodFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(JBAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JBCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -145,8 +136,7 @@ public class JFListaEmpleados extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFCodFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(JBAceptar)
-                    .addComponent(JBCargar))
+                    .addComponent(JBAceptar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addContainerGap())
@@ -179,18 +169,23 @@ public class JFListaEmpleados extends javax.swing.JFrame {
     private void JBAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAceptarActionPerformed
         int fila = JTableEmpleado.getSelectedRow();
         if (fila >= 0) {
-
-            JFInCT.JTFNumCedulaJefe.setText(JTableEmpleado.getValueAt(fila, 0).toString());
-            this.dispose();
+            if (this.aux.equalsIgnoreCase("CT")) {
+                JFInCT.JTFNumCedulaJefe.setText(JTableEmpleado.getValueAt(fila, 0).toString());
+                this.dispose();
+            }
+            if(this.aux.equalsIgnoreCase("Experiencia")){
+                JFInExperiencia.JTFNumCedEmp.setText(JTableEmpleado.getValueAt(fila, 0).toString());
+                this.dispose();
+            }
+            if (this.aux.equalsIgnoreCase("Hijo")) {
+                JFInHijo.JTFNumCedTutor.setText(JTableEmpleado.getValueAt(fila, 0).toString());
+                this.dispose();
+            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }
     }//GEN-LAST:event_JBAceptarActionPerformed
-
-    private void JBCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarActionPerformed
-        cargar("");
-    }//GEN-LAST:event_JBCargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,7 +225,6 @@ public class JFListaEmpleados extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAceptar;
-    private javax.swing.JButton JBCargar;
     private javax.swing.JTextField JTFCodFiltrar;
     private javax.swing.JTable JTableEmpleado;
     private javax.swing.JLabel jLabel1;

@@ -1,6 +1,7 @@
 package Interfaz;
 
 import Fuentes.Conexion;
+import Fuentes.Experiencia;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,15 +18,27 @@ import javax.swing.table.DefaultTableModel;
  * @author GRUPO 4
  */
 public class JFInExperiencia extends javax.swing.JInternalFrame {
-
+    
     DefaultTableModel model;//Modifica un objeto del tipo jtable
     Conexion cc;
     Connection cn;
     private int auxiliarBoton;
-    private int sucursal;
-
-    public JFInExperiencia() {
+    
+    public JFInExperiencia(int aux) {
         initComponents();
+        this.JBGuardarCambios.setEnabled(false);
+        this.JBCancelarCambios.setEnabled(false);
+        
+        this.JTFNumCedEmp.setEnabled(false);
+        this.JTFCodArea.setEnabled(false);
+        this.JTFCodCT.setEnabled(false);
+        this.JBSearchCT.setEnabled(false);
+        this.JBSearchCodArea.setEnabled(false);
+        this.JBSearchNumCedEmp.setEnabled(false);
+        
+        cc = new Conexion();
+        cn = cc.getConexion();
+        cargar("");
     }
 
     //Se extrae lo que tenemos en la base de datos de la tabla EXPERIENCIA
@@ -33,20 +46,20 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
         //Titulos de cada Cl y Fl
         String[] titulos = {"EMP_CEDULA", "CT_CODIGO", "AREA_COD"};
         String[] registros = new String[3];
-
+        
         String querry = "SELECT * FROM EXPERIENCIA where EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(querry);
-
+            
             while (rs.next()) {
                 //Se da la informacion a cada columna que se extrae de rs
                 registros[0] = rs.getString("EMP_CEDULA");
                 registros[1] = rs.getString("CT_CODIGO");
                 registros[2] = rs.getString("AREA_COD");
-
+                
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableExp.setModel(model);//Seteamos la tabla con los datos 
@@ -54,7 +67,30 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-
+    
+    public void opcionAgain() {
+        this.JBNuevoReg.setEnabled(true);
+        this.JBModificarReg.setEnabled(true);
+        this.JBBorrarReg.setEnabled(true);
+        
+        this.JBGuardarCambios.setEnabled(false);
+        this.JBCancelarCambios.setEnabled(false);
+        
+        this.JTFNumCedEmp.setEnabled(false);
+        this.JTFCodArea.setEnabled(false);
+        this.JTFCodCT.setEnabled(false);
+        this.JBSearchCT.setEnabled(false);
+        this.JBSearchCodArea.setEnabled(false);
+        this.JBSearchNumCedEmp.setEnabled(false);
+        
+        this.JTFCedulaBuscador.setText("");
+        this.JTFCodArea.setText("");
+        this.JTFCodCT.setText("");
+        this.JTFNumCedEmp.setText("");
+        
+        cargar("");
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -81,6 +117,7 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
         JTFCodArea = new javax.swing.JTextField();
         JBSearchCT = new javax.swing.JButton();
         JBSearchCodArea = new javax.swing.JButton();
+        JBSearchNumCedEmp = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTableExp = new javax.swing.JTable();
 
@@ -243,8 +280,25 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
         jLabel3.setText("CÓDIGO ÁREA:");
 
         JBSearchCT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_Searchicons-search-people2_825453.png"))); // NOI18N
+        JBSearchCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSearchCTActionPerformed(evt);
+            }
+        });
 
         JBSearchCodArea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_Searchicons-search-people2_825453.png"))); // NOI18N
+        JBSearchCodArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSearchCodAreaActionPerformed(evt);
+            }
+        });
+
+        JBSearchNumCedEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_Searchicons-search-people2_825453.png"))); // NOI18N
+        JBSearchNumCedEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSearchNumCedEmpActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -267,35 +321,41 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
                             .addComponent(JTFNumCedEmp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                             .addComponent(JTFCodCT, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
-                        .addComponent(JBSearchCT, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JBSearchCT, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBSearchNumCedEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(JTFNumCedEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(JBSearchCT, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(JTFCodCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addComponent(JBSearchNumCedEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(JTFCodArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(JTFNumCedEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(22, 22, 22)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JBSearchCT, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(JBSearchCodArea, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JTFCodCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JBSearchCodArea, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JTFCodArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -331,8 +391,8 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
 
         jSplitPane2.setRightComponent(JPanelPrincipal);
@@ -350,7 +410,7 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addComponent(jSplitPane2)
                 .addContainerGap())
         );
 
@@ -358,29 +418,151 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBNuevoRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNuevoRegActionPerformed
-
+        this.auxiliarBoton = 1;
+        
+        this.JBNuevoReg.setEnabled(false);
+        this.JBModificarReg.setEnabled(false);
+        this.JBBorrarReg.setEnabled(false);
+        
+        this.JBGuardarCambios.setEnabled(true);
+        this.JBCancelarCambios.setEnabled(true);
+        
+        this.JTFNumCedEmp.setEnabled(true);
+        this.JTFNumCedEmp.setEditable(false);
+        this.JTFCodArea.setEnabled(true);
+        this.JTFCodArea.setEditable(false);
+        this.JTFCodCT.setEnabled(true);
+        this.JTFCodCT.setEditable(false);
+        
+        this.JBSearchCT.setEnabled(true);
+        this.JBSearchCodArea.setEnabled(true);
+        this.JBSearchNumCedEmp.setEnabled(true);
+        
+        this.JTFNumCedEmp.requestFocus();
 
     }//GEN-LAST:event_JBNuevoRegActionPerformed
 
     private void JBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarCambiosActionPerformed
+        int empCedula = Integer.parseInt(this.JTFNumCedEmp.getText());
+        int CT_Codigo = Integer.parseInt(this.JTFCodCT.getText());
+        int areaCod = Integer.parseInt(this.JTFCodArea.getText());
+        
+        Experiencia exp = new Experiencia(empCedula, CT_Codigo, areaCod);
 
+        //Opcion Guardar 
+        if (auxiliarBoton == 1) {
+            //Cuando el usuario verifica que SI desea guardar
+            if (exp.guardarExperiencia(cn)) {
+                this.opcionAgain();
+                cargar("");
+                //Cuando el usuario verifica que NO desea guardar   
+            } else {
+                this.opcionAgain();
+                cargar("");
+            }
+        } else {//AuxBoton = 2 es decir modificar
+            //Cuando el usuario verifica que SI desea guardar
+            if (exp.modificarExperiencia(empCedula, cn)) {
+                this.opcionAgain();
+                cargar("");
+                //Cuando el usuario verifica que NO desea guardar  
+            } else {
+                this.opcionAgain();
+                cargar("");
+            }
+        }
     }//GEN-LAST:event_JBGuardarCambiosActionPerformed
 
     private void JBCancelarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarCambiosActionPerformed
-
+        this.opcionAgain();
     }//GEN-LAST:event_JBCancelarCambiosActionPerformed
 
     private void JBBorrarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBorrarRegActionPerformed
+        int fila = JTableExp.getSelectedRow();
+        if (fila >= 0) {
+            //Activando cajas de texto y botones
+            int valor = Integer.parseInt(JTableExp.getValueAt(fila, 0).toString());
+            
+            this.JBNuevoReg.setEnabled(false);
+            this.JBModificarReg.setEnabled(false);
+            this.JBBorrarReg.setEnabled(false);
+            
+            this.JBGuardarCambios.setEnabled(false);
+            this.JBCancelarCambios.setEnabled(false);
+            this.JTFCedulaBuscador.setEnabled(true);
+            
+            this.JTFNumCedEmp.setEnabled(false);
+            this.JTFCodArea.setEnabled(false);
+            this.JTFCodCT.setEnabled(false);
+            this.JBSearchCT.setEnabled(false);
+            this.JBSearchCodArea.setEnabled(false);
+            this.JBSearchNumCedEmp.setEnabled(false);
 
+            //Pasando datos de la tabla a cada caja de texto
+            this.JTFNumCedEmp.setText(JTableExp.getValueAt(fila, 0).toString());
+            this.JTFCodCT.setText(JTableExp.getValueAt(fila, 1).toString());
+            this.JTFCodArea.setText(JTableExp.getValueAt(fila, 2).toString());
+            
+            if (Experiencia.eliminarExperiencia(valor, cn)) {
+                this.opcionAgain();
+            } else {
+                this.opcionAgain();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
+        }
     }//GEN-LAST:event_JBBorrarRegActionPerformed
 
     private void JTFCedulaBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFCedulaBuscadorKeyReleased
-
+        cargar(this.JTFCedulaBuscador.getText());
     }//GEN-LAST:event_JTFCedulaBuscadorKeyReleased
 
     private void JBModificarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBModificarRegActionPerformed
+        auxiliarBoton = 2;
+        int fila = JTableExp.getSelectedRow();
+        if (fila >= 0) {
+            this.JBNuevoReg.setEnabled(false);
+            this.JBModificarReg.setEnabled(false);
+            this.JBBorrarReg.setEnabled(false);
+            
+            this.JBGuardarCambios.setEnabled(false);
+            this.JBCancelarCambios.setEnabled(false);
+            this.JTFCedulaBuscador.setEnabled(true);
+            
+            this.JTFNumCedEmp.setEnabled(false);
+            this.JTFCodArea.setEnabled(false);
+            this.JTFCodCT.setEnabled(false);
+            this.JBSearchCT.setEnabled(true);
+            this.JBSearchCodArea.setEnabled(true);
+            this.JBSearchNumCedEmp.setEnabled(false);
 
+            //Pasando datos de la tabla a cada caja de texto
+            this.JTFNumCedEmp.setText(JTableExp.getValueAt(fila, 0).toString());
+            this.JTFCodCT.setText(JTableExp.getValueAt(fila, 1).toString());
+            this.JTFCodArea.setText(JTableExp.getValueAt(fila, 2).toString());
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
+        }
     }//GEN-LAST:event_JBModificarRegActionPerformed
+
+    private void JBSearchNumCedEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchNumCedEmpActionPerformed
+        JFListaEmpleados listaEmp = new JFListaEmpleados();
+        listaEmp.setAux("Experiencia");
+        listaEmp.setVisible(true);
+    }//GEN-LAST:event_JBSearchNumCedEmpActionPerformed
+
+    private void JBSearchCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchCTActionPerformed
+        JFListaCT listaCT = new JFListaCT();
+        listaCT.setAux("Experiencia");
+        listaCT.setVisible(true);
+    }//GEN-LAST:event_JBSearchCTActionPerformed
+
+    private void JBSearchCodAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchCodAreaActionPerformed
+        JFListaArea listaArea = new JFListaArea();
+        listaArea.setAux("Experiencia");
+        listaArea.setVisible(true);
+    }//GEN-LAST:event_JBSearchCodAreaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -391,11 +573,12 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBNuevoReg;
     private javax.swing.JButton JBSearchCT;
     private javax.swing.JButton JBSearchCodArea;
+    private javax.swing.JButton JBSearchNumCedEmp;
     private javax.swing.JPanel JPanelPrincipal;
     private javax.swing.JTextField JTFCedulaBuscador;
-    private javax.swing.JTextField JTFCodArea;
-    private javax.swing.JTextField JTFCodCT;
-    private javax.swing.JTextField JTFNumCedEmp;
+    public static javax.swing.JTextField JTFCodArea;
+    public static javax.swing.JTextField JTFCodCT;
+    public static javax.swing.JTextField JTFNumCedEmp;
     public static javax.swing.JTable JTableExp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

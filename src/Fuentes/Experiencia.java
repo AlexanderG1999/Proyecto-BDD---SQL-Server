@@ -19,6 +19,12 @@ public class Experiencia {
     private int CT_Codigo;
     private int areaCod;
 
+    public Experiencia(int empCedula, int CT_Codigo, int areaCod) {
+        this.empCedula = empCedula;
+        this.CT_Codigo = CT_Codigo;
+        this.areaCod = areaCod;
+    }
+
     public int getEmpCedula() {
         return empCedula;
     }

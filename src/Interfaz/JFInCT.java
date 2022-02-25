@@ -23,9 +23,8 @@ public class JFInCT extends javax.swing.JInternalFrame {
     Conexion cc;
     Connection cn;
     private int auxiliarBoton;
-    private int sucursal;
 
-    public JFInCT(int aux) {
+    public JFInCT() {
         initComponents();
         this.JBGuardarCambios.setEnabled(false);
         this.JBCancelarCambios.setEnabled(false);
@@ -37,8 +36,7 @@ public class JFInCT extends javax.swing.JInternalFrame {
         this.JTFNumPob.setEnabled(false);
         this.JBSearchJefe.setEnabled(false);
         cc = new Conexion();
-        cn = cc.getConexion(aux);
-        this.sucursal = aux;
+        cn = cc.getConexion();
         cargar("");
     }
 
@@ -556,7 +554,7 @@ public class JFInCT extends javax.swing.JInternalFrame {
 
     private void JBSearchJefeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchJefeActionPerformed
         JFListaEmpleados lista = new JFListaEmpleados();
-        lista.setAux(this.sucursal);
+        lista.setAux("CT");
         lista.setVisible(true);
     }//GEN-LAST:event_JBSearchJefeActionPerformed
 

@@ -19,9 +19,8 @@ public class JFInArea extends javax.swing.JInternalFrame {
     Conexion cc;
     Connection cn;
     private int auxiliarBoton;
-    private int sucursal;
 
-    public JFInArea(int aux) {
+    public JFInArea() {
         initComponents();
         this.JBGuardarCambios.setEnabled(false);
         this.JBCancelarCambios.setEnabled(false);
@@ -31,8 +30,7 @@ public class JFInArea extends javax.swing.JInternalFrame {
         this.JTADescripArea.setEnabled(false);
 
         cc = new Conexion();
-        cn = cc.getConexion(aux);
-        this.sucursal = aux;
+        cn = cc.getConexion();
         cargar("");
     }
 

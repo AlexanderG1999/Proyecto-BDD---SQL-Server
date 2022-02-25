@@ -333,7 +333,7 @@
                                           <Component id="JTFTelef" alignment="0" max="32767" attributes="0"/>
                                           <Component id="JTFNumHijos" alignment="0" max="32767" attributes="0"/>
                                           <Component id="JTFNomApeEmp" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="JTFNomCT" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="JTFCodCT" alignment="0" max="32767" attributes="0"/>
                                           <Component id="JTFNomDep" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -365,7 +365,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="JTFNomCT" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="JTFCodCT" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -464,7 +464,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JTFTelefActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="JTFNomCT">
+                <Component class="javax.swing.JTextField" name="JTFCodCT">
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
