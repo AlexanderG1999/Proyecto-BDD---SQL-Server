@@ -35,7 +35,7 @@ public class JFListaDep extends javax.swing.JFrame {
         String[] titulos = {"CÓDIGO DEPARTAMENTO", "CÓDIGO CENTRO", "NOMBRE DEPARTAMENTO", "PRESUPUESTO ANUAL"};
         String[] registros = new String[4];
 
-        String querry = "SELECT * FROM departamento where DEP_CODIGO LIKE '%" + valor + "%'";
+        String querry = "SELECT * FROM vista_departamento where DEP_CODIGO LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {

@@ -552,8 +552,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         Date date = JDCFechaContra.getDate();//Se crea un objeto del tipo date y se extrae del jCalendar
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//Se le da un formato de la base de datos
         String fechaContrato = formato.format(date);//Se guarda como String y se le da el formato de arriba 
-
-        Empleado empleado = new Empleado(numCed, depCodigo, depCodigo, nombreEmp, numHijos, telefono, salario, fechaContrato);
+        
+        Empleado empleado = new Empleado(numCed, centroTrabajo, depCodigo, nombreEmp, numHijos, telefono, salario, fechaContrato);
 
         //Opcion Guardar Empleado
         if (auxiliarBoton == 1) {
@@ -673,6 +673,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JTFTelef.setText(JTableEmpleado.getValueAt(fila, 5).toString());
             this.JTFSalario.setText(JTableEmpleado.getValueAt(fila, 6).toString());
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            
             try {
                 Date fecha = formato.parse(JTableEmpleado.getValueAt(fila, 7).toString());
                 this.JDCFechaContra.setDate(fecha);

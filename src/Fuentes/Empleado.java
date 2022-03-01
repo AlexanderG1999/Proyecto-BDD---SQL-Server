@@ -119,13 +119,20 @@ public class Empleado {
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea guardar el Registro?", "Mensaje", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
             try {
-                String querry = "INSERT INTO empleado "
-                        + "values (" + this.numCedula + "," + this.CT_Codigo + "," + this.depCodigo + ",'" + this.nombre + "'"
-                        + "," + this.numHijos + "," + this.numTelefono + ")";
+                String querry1 = "set xact_abort on "
+                        + "begin distributed transaction "
+                        + "insert into vista_empleado values (" + this.numCedula + "," + this.CT_Codigo + "," + this.depCodigo
+                        + ",'" + this.nombre + "'" + "," + this.numHijos + "," + this.numTelefono + ") "
+                        + "commit transaction";
+
+                String querry2 = "INSERT INTO [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS "
+                        + "values (" + this.numCedula + "," + this.salario + ",'" + this.fechaContrato + "')";
 
                 //Ingresando datos a SQL Server
                 Statement stmt = cn.createStatement();//Envia tipos de sentencias sql
-                stmt.executeUpdate(querry);//ejecuta la sentencia
+                stmt.executeUpdate(querry1);//ejecuta la sentencia
+                stmt.executeUpdate(querry2);//ejecuta la sentencia
+
                 JOptionPane.showMessageDialog(null, "Registro agregado con ÉXITO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
                 resultado = true;
             } catch (SQLException ex) {
@@ -144,20 +151,29 @@ public class Empleado {
         if (opcion == JOptionPane.YES_OPTION) {
             try {
                 //Envia tipos de sentencias sql y tambien trabaja con parametros
-                PreparedStatement pps = cn.prepareStatement("UPDATE empleado SET "
-                        + "EMP_CEDULA=" + this.numCedula + ","
-                        + "CT_CODIGO=" + this.CT_Codigo + ","
+                PreparedStatement pps1 = cn.prepareStatement("set xact_abort on\n"
+                        + "begin distributed transaction\n"
+                        + "UPDATE vista_empleado SET "
                         + "DEP_CODIGO=" + this.depCodigo + ","
                         + "EMP_NOMBRE='" + this.nombre + "',"
                         + "EMP_NUMHIJOS=" + this.numHijos + ","
                         + "EMP_TELEFONO=" + this.numTelefono + " "
+                        + "WHERE EMP_CEDULA = " + valor + "\n"
+                        + "commit transaction");
+
+                PreparedStatement pps2 = cn.prepareStatement("UPDATE [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS SET "
+                        + "EMP_SALARIO=" + this.salario + ","
+                        + "EMP_FECHACONTRATO='" + this.fechaContrato + "' "
                         + "WHERE EMP_CEDULA = " + valor);
-                pps.executeUpdate();
+
+                pps1.executeUpdate();
+                pps2.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro Actualizado.", "Mensaje", JOptionPane.DEFAULT_OPTION);
                 resultado = true;
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "NO se logro actualizar el registro.", "Mensaje", JOptionPane.DEFAULT_OPTION);
+                System.out.println(ex);
             }
         } else {
             resultado = false;
@@ -172,8 +188,15 @@ public class Empleado {
         if (opcion == JOptionPane.YES_OPTION) {
             try {
                 //Eliminando el registro solicitado
-                PreparedStatement pps = cn.prepareStatement("DELETE FROM empleado where EMP_CEDULA=" + valor);
-                pps.executeUpdate();
+                PreparedStatement pps1 = cn.prepareStatement("set xact_abort on\n"
+                        + "begin distributed transaction\n"
+                        + "DELETE FROM vista_empleado where EMP_CEDULA=" + valor + "\n"
+                        + "commit transaction");
+
+                PreparedStatement pps2 = cn.prepareStatement("DELETE FROM [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS where EMP_CEDULA=" + valor);
+
+                pps1.executeUpdate();
+                pps2.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro eliminado con éxito.", "Mensaje", JOptionPane.DEFAULT_OPTION);
 
                 //Retorna true en el caso de una eliminacion con exito

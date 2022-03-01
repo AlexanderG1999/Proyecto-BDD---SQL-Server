@@ -49,13 +49,13 @@ public class Conexion {
         String database = "";
 
         switch (this.hostname) {
-            case "LAPTOP-BDO1H2E7":
+            case "ALEXANDER":
                 database = "Proyecto_Sucursal_Quito";
                 break;
-            case "DESKTOP-K9I5VUE":
+            case "DESKTOP-10M4LLF": //Ricardo
                 database = "Proyecto_Sucursal_Valle";
                 break;
-            case "DESKTOP-TFI2VS2":
+            case "DESKTOP-2BD5KES": //Leonardo
                 database = "Proyecto_Sucursal_Latacunga";
                 break;
         }
