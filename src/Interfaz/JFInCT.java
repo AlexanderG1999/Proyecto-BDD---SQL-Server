@@ -2,14 +2,10 @@ package Interfaz;
 
 import Fuentes.CentroDeTrabajo;
 import Fuentes.Conexion;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -90,6 +86,8 @@ public class JFInCT extends javax.swing.JInternalFrame {
         this.JTFNomCT.setText("");
         this.JTFNumCedulaJefe.setText("");
         this.JTFNumPob.setText("");
+
+        cargar("");
 
     }
 
@@ -433,7 +431,6 @@ public class JFInCT extends javax.swing.JInternalFrame {
 
         this.JTFCodCentro.setEnabled(true);
         JTFNumCedulaJefe.setEnabled(true);
-        JTFNumCedulaJefe.setEditable(false);
         this.JTFNomCT.setEnabled(true);
         this.JTFNumPob.setEnabled(true);
         this.JTFDireccion.setEnabled(true);
@@ -454,26 +451,22 @@ public class JFInCT extends javax.swing.JInternalFrame {
 
         CentroDeTrabajo ct = new CentroDeTrabajo(CT_Codigo, jefCedula, nombre, numPoblacion, direccion);
 
-        //Opcion Guardar Empleado
+        //Opcion Guardar
         if (auxiliarBoton == 1) {
-            //Cuando el usuario verifica que SI desea guardar al Empleado
+            //Cuando el usuario verifica que SI desea guardar
             if (ct.guardarCT(cn)) {
                 this.opcionAgain();
-                cargar("");
-                //Cuando el usuario verifica que NO desea guardar al Empleado   
+                //Cuando el usuario verifica que NO desea guardar  
             } else {
                 this.opcionAgain();
-                cargar("");
             }
-        } else {//AuxBoton = 2 es decir modificar empleado
-            //Cuando el usuario verifica que SI desea guardar al Empleado
+        } else {//AuxBoton = 2 es decir modificar
+            //Cuando el usuario verifica que SI desea guardar
             if (ct.modificarCT(CT_Codigo, cn)) {
                 this.opcionAgain();
-                cargar("");
-                //Cuando el usuario verifica que NO desea guardar al Empleado   
+                //Cuando el usuario verifica que NO desea guardar  
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         }
     }//GEN-LAST:event_JBGuardarCambiosActionPerformed
@@ -494,8 +487,6 @@ public class JFInCT extends javax.swing.JInternalFrame {
 
             this.JBGuardarCambios.setEnabled(false);
             this.JBCancelarCambios.setEnabled(false);
-            this.JTFNumPob.setEnabled(false);
-            this.JTFDireccion.setEnabled(false);
 
             //Pasando datos de la tabla a cada caja de texto
             this.JTFCodCentro.setText(JTableCT.getValueAt(fila, 0).toString());
@@ -505,13 +496,9 @@ public class JFInCT extends javax.swing.JInternalFrame {
             this.JTFDireccion.setText(JTableCT.getValueAt(fila, 4).toString());
 
             if (CentroDeTrabajo.eliminarCT(valor, cn)) {
-                cargar("");
-                this.JTFCodBuscador.setText("");
                 this.opcionAgain();
             } else {
                 this.opcionAgain();
-                this.JTFCodBuscador.setText("");
-                cargar("");
             }
 
         } else {
@@ -546,7 +533,6 @@ public class JFInCT extends javax.swing.JInternalFrame {
             this.JTFNumPob.setText(JTableCT.getValueAt(fila, 3).toString());
             this.JTFDireccion.setText(JTableCT.getValueAt(fila, 4).toString());
 
-            this.JTFCodBuscador.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }

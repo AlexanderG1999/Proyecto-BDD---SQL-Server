@@ -2,7 +2,6 @@ package Interfaz;
 
 import Fuentes.Conexion;
 import Fuentes.Hijo;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -94,6 +93,8 @@ public class JFInHijo extends javax.swing.JInternalFrame {
         this.JDCFechaNac.setCalendar(null);
         this.JBSearchCT.setText("");
         this.JBSearchTutor.setText("");
+
+        cargar("");
     }
 
     @SuppressWarnings("unchecked")
@@ -444,11 +445,7 @@ public class JFInHijo extends javax.swing.JInternalFrame {
         this.JBGuardarCambios.setEnabled(true);
         this.JBCancelarCambios.setEnabled(true);
 
-        this.JTFCodHijo.setEnabled(true);
         JTFCodHijo.setEnabled(true);
-        this.JTFCodCT.setEditable(false);
-        JTFCodCT.setEnabled(true);
-        this.JTFNumCedTutor.setEditable(false);
         this.JTFNombApe.setEnabled(true);
         this.JDCFechaNac.setEnabled(true);
         this.JBSearchTutor.setEnabled(true);
@@ -473,24 +470,17 @@ public class JFInHijo extends javax.swing.JInternalFrame {
             //Cuando el usuario verifica que SI desea guardar al hijo
             if (hijo.guardarHijo(cn)) {
                 this.opcionAgain();
-                cargar("");
                 //Cuando el usuario verifica que NO desea guardar al hijo   
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         } else {//AuxBoton = 2 es decir modificar hijo
             //Cuando el usuario verifica que SI desea guardar al hijo
             if (hijo.modificarHijo(codigoHijo, cn)) {
-                this.JTFCodCT.setEditable(true);
-                this.JTFNumCedTutor.setEditable(true);
-                this.JTFNombApe.setEditable(true);
                 this.opcionAgain();
-                cargar("");
                 //Cuando el usuario verifica que NO desea guardar al hijo   
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         }
     }//GEN-LAST:event_JBGuardarCambiosActionPerformed
@@ -511,10 +501,10 @@ public class JFInHijo extends javax.swing.JInternalFrame {
 
             this.JBGuardarCambios.setEnabled(false);
             this.JBCancelarCambios.setEnabled(false);
-            this.JTFCodBuscador.setEnabled(true);
+
             this.JTFCodHijo.setEnabled(false);
-            this.JTFCodCT.setEnabled(false);
-            this.JTFNumCedTutor.setEnabled(false);
+            JFInHijo.JTFCodCT.setEnabled(false);
+            JFInHijo.JTFNumCedTutor.setEnabled(false);
             this.JTFNombApe.setEnabled(false);
             this.JDCFechaNac.setEnabled(false);
             this.JBSearchCT.setEnabled(false);
@@ -522,8 +512,8 @@ public class JFInHijo extends javax.swing.JInternalFrame {
 
             //Pasando datos de la tabla a cada caja de texto
             this.JTFCodHijo.setText(JTableHijo.getValueAt(fila, 0).toString());
-            this.JTFCodCT.setText(JTableHijo.getValueAt(fila, 1).toString());
-            this.JTFNumCedTutor.setText(JTableHijo.getValueAt(fila, 2).toString());
+            JFInHijo.JTFCodCT.setText(JTableHijo.getValueAt(fila, 1).toString());
+            JFInHijo.JTFNumCedTutor.setText(JTableHijo.getValueAt(fila, 2).toString());
             this.JTFNombApe.setText(JTableHijo.getValueAt(fila, 3).toString());
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -537,13 +527,9 @@ public class JFInHijo extends javax.swing.JInternalFrame {
             this.JTFCodBuscador.setText("");
 
             if (Hijo.eliminarHijo(valor, cn)) {
-                cargar("");
-                this.JTFCodBuscador.setText("");
                 this.opcionAgain();
             } else {
                 this.opcionAgain();
-                this.JTFCodBuscador.setText("");
-                cargar("");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
@@ -567,8 +553,8 @@ public class JFInHijo extends javax.swing.JInternalFrame {
             this.JBCancelarCambios.setEnabled(false);
             this.JTFCodBuscador.setEnabled(true);
             this.JTFCodHijo.setEnabled(false);
-            this.JTFCodCT.setEnabled(false);
-            this.JTFNumCedTutor.setEnabled(false);
+            JFInHijo.JTFCodCT.setEnabled(false);
+            JFInHijo.JTFNumCedTutor.setEnabled(false);
             this.JTFNombApe.setEnabled(false);
             this.JDCFechaNac.setEnabled(false);
             this.JBSearchCT.setEnabled(false);
@@ -588,7 +574,6 @@ public class JFInHijo extends javax.swing.JInternalFrame {
                 System.out.println(e);
             }
 
-            this.JTFCodBuscador.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }

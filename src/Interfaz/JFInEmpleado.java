@@ -29,8 +29,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JBCancelarCambios.setEnabled(false);
 
         this.JTFNomApeEmp.setEnabled(false);
-        this.JTFCodCT.setEnabled(false);
-        this.JTFNomDep.setEnabled(false);
+        JFInEmpleado.JTFCodCT.setEnabled(false);
+        JFInEmpleado.JTFCodDep.setEnabled(false);
         this.JTFNumCedEmp.setEnabled(false);
         this.JTFNumHijos.setEnabled(false);
         this.JTFTelef.setEnabled(false);
@@ -87,7 +87,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
 
         this.JTFNomApeEmp.setEnabled(false);
         this.JTFCodCT.setEnabled(false);
-        this.JTFNomDep.setEnabled(false);
+        this.JTFCodDep.setEnabled(false);
         this.JTFNumCedEmp.setEnabled(false);
         this.JTFNumHijos.setEnabled(false);
         this.JTFTelef.setEnabled(false);
@@ -95,17 +95,11 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JTFSalario.setEnabled(false);
         this.JDCFechaContra.setEnabled(false);
         this.JBSearchCT.setEnabled(false);
-        
-        this.JTFNumCedEmp.setEditable(true);
-        this.JTFNomApeEmp.setEditable(true);
-        this.JTFNumHijos.setEditable(true);
-        this.JTFTelef.setEditable(true);
-        this.JTFSalario.setEditable(true);
 
         this.JTFCedulaBuscador.setText("");
         this.JTFNomApeEmp.setText("");
         this.JTFCodCT.setText("");
-        this.JTFNomDep.setText("");
+        this.JTFCodDep.setText("");
         this.JTFNumCedEmp.setText("");
         this.JTFNumHijos.setText("");
         this.JTFTelef.setText("");
@@ -145,7 +139,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         JTFTelef = new javax.swing.JTextField();
         JTFCodCT = new javax.swing.JTextField();
         JBSearchDep = new javax.swing.JButton();
-        JTFNomDep = new javax.swing.JTextField();
+        JTFCodDep = new javax.swing.JTextField();
         JBSearchCT = new javax.swing.JButton();
         JTFSalario = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -392,7 +386,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                                 .addComponent(JTFNumHijos, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(JTFNomApeEmp, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(JTFCodCT, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(JTFNomDep, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(JTFCodDep, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(JBSearchCT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -420,7 +414,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JTFNomDep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JTFCodDep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -518,10 +512,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JBCancelarCambios.setEnabled(true);
 
         this.JTFNomApeEmp.setEnabled(true);
-        JTFCodCT.setEnabled(true);
-        this.JTFCodCT.setEditable(false);
-        JTFNomDep.setEnabled(true);
-        this.JTFNomDep.setEditable(false);
+        JTFCodCT.setEnabled(false);
+        JTFCodDep.setEnabled(false);
         this.JTFNumCedEmp.setEnabled(true);
         this.JTFNumHijos.setEnabled(true);
         this.JTFTelef.setEnabled(true);
@@ -544,7 +536,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     private void JBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarCambiosActionPerformed
         int numCed = Integer.parseInt(this.JTFNumCedEmp.getText());
         int centroTrabajo = Integer.parseInt(JTFCodCT.getText());
-        int depCodigo = Integer.parseInt(this.JTFNomDep.getText());
+        int depCodigo = Integer.parseInt(this.JTFCodDep.getText());
         String nombreEmp = this.JTFNomApeEmp.getText();
         int numHijos = Integer.parseInt(this.JTFNumHijos.getText());
         int telefono = Integer.parseInt(this.JTFTelef.getText());
@@ -567,9 +559,6 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         } else {//AuxBoton = 2 es decir modificar empleado
             //Cuando el usuario verifica que SI desea guardar al Empleado
             if (empleado.modificarEmpleado(numCed, cn)) {
-                this.JTFCodCT.setEditable(true);
-                this.JTFNomDep.setEditable(true);
-                this.JTFNumCedEmp.setEditable(true);
                 this.opcionAgain();
                 //Cuando el usuario verifica que NO desea guardar al Empleado   
             } else {
@@ -597,7 +586,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JTFCedulaBuscador.setEnabled(true);
             this.JTFNomApeEmp.setEnabled(false);
             this.JTFCodCT.setEnabled(false);
-            this.JTFNomDep.setEnabled(false);
+            this.JTFCodDep.setEnabled(false);
             this.JTFNumCedEmp.setEnabled(false);
             this.JTFNumHijos.setEnabled(false);
             this.JTFTelef.setEnabled(false);
@@ -609,7 +598,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             //Pasando datos de la tabla a cada caja de texto
             this.JTFNumCedEmp.setText(JTableEmpleado.getValueAt(fila, 0).toString());
             this.JTFCodCT.setText(JTableEmpleado.getValueAt(fila, 1).toString());
-            this.JTFNomDep.setText(JTableEmpleado.getValueAt(fila, 2).toString());
+            this.JTFCodDep.setText(JTableEmpleado.getValueAt(fila, 2).toString());
             this.JTFNomApeEmp.setText(JTableEmpleado.getValueAt(fila, 3).toString());
             this.JTFNumHijos.setText(JTableEmpleado.getValueAt(fila, 4).toString());
             this.JTFTelef.setText(JTableEmpleado.getValueAt(fila, 5).toString());
@@ -623,14 +612,10 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 System.out.println(e);
             }
 
-            this.JTFCedulaBuscador.setText("");
-
             if (Empleado.eliminarEmpleado(valor, cn)) {
-                this.JTFCedulaBuscador.setText("");
                 this.opcionAgain();
             } else {
                 this.opcionAgain();
-                this.JTFCedulaBuscador.setText("");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
@@ -652,10 +637,9 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
 
             this.JBGuardarCambios.setEnabled(true);
             this.JBCancelarCambios.setEnabled(true);
-            this.JTFCedulaBuscador.setEnabled(true);
             this.JTFNomApeEmp.setEnabled(true);
             this.JTFCodCT.setEditable(false);
-            this.JTFNomDep.setEditable(false);
+            this.JTFCodDep.setEditable(false);
             this.JTFNumCedEmp.setEditable(false);
             this.JBSearchCT.setEnabled(true);
             this.JTFNumHijos.setEnabled(true);
@@ -667,7 +651,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             //Pasando datos de la tabla a cada caja de texto
             this.JTFNumCedEmp.setText(JTableEmpleado.getValueAt(fila, 0).toString());
             this.JTFCodCT.setText(JTableEmpleado.getValueAt(fila, 1).toString());
-            this.JTFNomDep.setText(JTableEmpleado.getValueAt(fila, 2).toString());
+            this.JTFCodDep.setText(JTableEmpleado.getValueAt(fila, 2).toString());
             this.JTFNomApeEmp.setText(JTableEmpleado.getValueAt(fila, 3).toString());
             this.JTFNumHijos.setText(JTableEmpleado.getValueAt(fila, 4).toString());
             this.JTFTelef.setText(JTableEmpleado.getValueAt(fila, 5).toString());
@@ -729,8 +713,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JPanel JPanelPrincipal;
     private javax.swing.JTextField JTFCedulaBuscador;
     public static javax.swing.JTextField JTFCodCT;
+    public static javax.swing.JTextField JTFCodDep;
     private javax.swing.JTextField JTFNomApeEmp;
-    public static javax.swing.JTextField JTFNomDep;
     private javax.swing.JTextField JTFNumCedEmp;
     private javax.swing.JTextField JTFNumHijos;
     private javax.swing.JTextField JTFSalario;

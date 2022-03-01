@@ -2,14 +2,10 @@ package Interfaz;
 
 import Fuentes.Conexion;
 import Fuentes.Experiencia;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,24 +14,24 @@ import javax.swing.table.DefaultTableModel;
  * @author GRUPO 4
  */
 public class JFInExperiencia extends javax.swing.JInternalFrame {
-    
+
     DefaultTableModel model;//Modifica un objeto del tipo jtable
     Conexion cc;
     Connection cn;
     private int auxiliarBoton;
-    
+
     public JFInExperiencia(int aux) {
         initComponents();
         this.JBGuardarCambios.setEnabled(false);
         this.JBCancelarCambios.setEnabled(false);
-        
+
         this.JTFNumCedEmp.setEnabled(false);
         this.JTFCodArea.setEnabled(false);
         this.JTFCodCT.setEnabled(false);
         this.JBSearchCT.setEnabled(false);
         this.JBSearchCodArea.setEnabled(false);
         this.JBSearchNumCedEmp.setEnabled(false);
-        
+
         cc = new Conexion();
         cn = cc.getConexion();
         cargar("");
@@ -46,20 +42,20 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
         //Titulos de cada Cl y Fl
         String[] titulos = {"NÚM. CÉDULA EMPLEADO", "CÓDIGO CENTRO", "CÓDIGO ÁREA"};
         String[] registros = new String[3];
-        
+
         String querry = "SELECT * FROM EXPERIENCIA where EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(querry);
-            
+
             while (rs.next()) {
                 //Se da la informacion a cada columna que se extrae de rs
                 registros[0] = rs.getString("EMP_CEDULA");
                 registros[1] = rs.getString("CT_CODIGO");
                 registros[2] = rs.getString("AREA_COD");
-                
+
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableExp.setModel(model);//Seteamos la tabla con los datos 
@@ -67,30 +63,30 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    
+
     public void opcionAgain() {
         this.JBNuevoReg.setEnabled(true);
         this.JBModificarReg.setEnabled(true);
         this.JBBorrarReg.setEnabled(true);
-        
+
         this.JBGuardarCambios.setEnabled(false);
         this.JBCancelarCambios.setEnabled(false);
-        
+
         this.JTFNumCedEmp.setEnabled(false);
         this.JTFCodArea.setEnabled(false);
         this.JTFCodCT.setEnabled(false);
         this.JBSearchCT.setEnabled(false);
         this.JBSearchCodArea.setEnabled(false);
         this.JBSearchNumCedEmp.setEnabled(false);
-        
+
         this.JTFCedulaBuscador.setText("");
         this.JTFCodArea.setText("");
         this.JTFCodCT.setText("");
         this.JTFNumCedEmp.setText("");
-        
+
         cargar("");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -419,25 +415,18 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
 
     private void JBNuevoRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNuevoRegActionPerformed
         this.auxiliarBoton = 1;
-        
+
         this.JBNuevoReg.setEnabled(false);
         this.JBModificarReg.setEnabled(false);
         this.JBBorrarReg.setEnabled(false);
-        
+
         this.JBGuardarCambios.setEnabled(true);
         this.JBCancelarCambios.setEnabled(true);
-        
-        this.JTFNumCedEmp.setEnabled(true);
-        this.JTFNumCedEmp.setEditable(false);
-        this.JTFCodArea.setEnabled(true);
-        this.JTFCodArea.setEditable(false);
-        this.JTFCodCT.setEnabled(true);
-        this.JTFCodCT.setEditable(false);
-        
+
         this.JBSearchCT.setEnabled(true);
         this.JBSearchCodArea.setEnabled(true);
         this.JBSearchNumCedEmp.setEnabled(true);
-        
+
         this.JTFNumCedEmp.requestFocus();
 
     }//GEN-LAST:event_JBNuevoRegActionPerformed
@@ -446,7 +435,7 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
         int empCedula = Integer.parseInt(this.JTFNumCedEmp.getText());
         int CT_Codigo = Integer.parseInt(this.JTFCodCT.getText());
         int areaCod = Integer.parseInt(this.JTFCodArea.getText());
-        
+
         Experiencia exp = new Experiencia(empCedula, CT_Codigo, areaCod);
 
         //Opcion Guardar 
@@ -454,21 +443,17 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
             //Cuando el usuario verifica que SI desea guardar
             if (exp.guardarExperiencia(cn)) {
                 this.opcionAgain();
-                cargar("");
                 //Cuando el usuario verifica que NO desea guardar   
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         } else {//AuxBoton = 2 es decir modificar
             //Cuando el usuario verifica que SI desea guardar
             if (exp.modificarExperiencia(empCedula, cn)) {
                 this.opcionAgain();
-                cargar("");
                 //Cuando el usuario verifica que NO desea guardar  
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         }
     }//GEN-LAST:event_JBGuardarCambiosActionPerformed
@@ -482,15 +467,15 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
         if (fila >= 0) {
             //Activando cajas de texto y botones
             int valor = Integer.parseInt(JTableExp.getValueAt(fila, 0).toString());
-            
+
             this.JBNuevoReg.setEnabled(false);
             this.JBModificarReg.setEnabled(false);
             this.JBBorrarReg.setEnabled(false);
-            
+
             this.JBGuardarCambios.setEnabled(false);
             this.JBCancelarCambios.setEnabled(false);
             this.JTFCedulaBuscador.setEnabled(true);
-            
+
             this.JTFNumCedEmp.setEnabled(false);
             this.JTFCodArea.setEnabled(false);
             this.JTFCodCT.setEnabled(false);
@@ -502,7 +487,7 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
             this.JTFNumCedEmp.setText(JTableExp.getValueAt(fila, 0).toString());
             this.JTFCodCT.setText(JTableExp.getValueAt(fila, 1).toString());
             this.JTFCodArea.setText(JTableExp.getValueAt(fila, 2).toString());
-            
+
             if (Experiencia.eliminarExperiencia(valor, cn)) {
                 this.opcionAgain();
             } else {
@@ -524,14 +509,11 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
             this.JBNuevoReg.setEnabled(false);
             this.JBModificarReg.setEnabled(false);
             this.JBBorrarReg.setEnabled(false);
-            
+
             this.JBGuardarCambios.setEnabled(false);
             this.JBCancelarCambios.setEnabled(false);
             this.JTFCedulaBuscador.setEnabled(true);
-            
-            this.JTFNumCedEmp.setEnabled(false);
-            this.JTFCodArea.setEnabled(false);
-            this.JTFCodCT.setEnabled(false);
+
             this.JBSearchCT.setEnabled(true);
             this.JBSearchCodArea.setEnabled(true);
             this.JBSearchNumCedEmp.setEnabled(false);
@@ -540,7 +522,7 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
             this.JTFNumCedEmp.setText(JTableExp.getValueAt(fila, 0).toString());
             this.JTFCodCT.setText(JTableExp.getValueAt(fila, 1).toString());
             this.JTFCodArea.setText(JTableExp.getValueAt(fila, 2).toString());
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }

@@ -169,7 +169,7 @@ public class JFListaDep extends javax.swing.JFrame {
         int fila = JTableDep.getSelectedRow();
         if (fila >= 0) {
             if (this.aux.equalsIgnoreCase("Empleado")) {
-                JFInEmpleado.JTFNomDep.setText(JTableDep.getValueAt(fila, 0).toString());
+                JFInEmpleado.JTFCodDep.setText(JTableDep.getValueAt(fila, 0).toString());
                 this.dispose();
             }
 

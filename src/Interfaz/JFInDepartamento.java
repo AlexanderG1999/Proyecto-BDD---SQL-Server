@@ -2,13 +2,10 @@ package Interfaz;
 
 import Fuentes.Conexion;
 import Fuentes.Departamento;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -83,6 +80,8 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         this.JTFNomDep.setText("");
         this.JTFCodDep.setText("");
         this.JTFCodCT.setText("");
+
+        cargar("");
     }
 
     @SuppressWarnings("unchecked")
@@ -425,26 +424,22 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         float DEP_PresupAnual = Float.parseFloat(this.JTFPresupAnual.getText());
 
         Departamento dt = new Departamento(DEP_Codigo, CT_Codigo, DEP_nombre, DEP_PresupAnual);
-        //Opcion Guardar Empleado
+        //Opcion Guardar
         if (auxiliarBoton == 1) {
-            //Cuando el usuario verifica que SI desea guardar al Empleado
+            //Cuando el usuario verifica que SI desea guardar
             if (dt.guardarDepartamento(cn)) {
                 this.opcionAgain();
-                cargar("");
-                //Cuando el usuario verifica que NO desea guardar al Empleado   
+                //Cuando el usuario verifica que NO desea guardar 
             } else {
                 this.opcionAgain();
-                cargar("");
             }
-        } else {//AuxBoton = 2 es decir modificar empleado
-            //Cuando el usuario verifica que SI desea guardar al Empleado
+        } else {//AuxBoton = 2 es decir modificar
+            //Cuando el usuario verifica que SI desea guardar
             if (dt.modificarDepartamento(CT_Codigo, cn)) {
                 this.opcionAgain();
-                cargar("");
-                //Cuando el usuario verifica que NO desea guardar al Empleado   
+                //Cuando el usuario verifica que NO desea guardar  
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         }
     }//GEN-LAST:event_JBGuardarCambiosActionPerformed
@@ -454,7 +449,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBCancelarCambiosActionPerformed
 
     private void JBBorrarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBorrarRegActionPerformed
-         auxiliarBoton = 2;
+        auxiliarBoton = 2;
         int fila = JTableDep.getSelectedRow();
         if (fila >= 0) {
             int valor = Integer.parseInt(JTableDep.getValueAt(fila, 0).toString());
@@ -478,13 +473,9 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
             this.JTFPresupAnual.setText(JTableDep.getValueAt(fila, 3).toString());
 
             if (Departamento.eliminarDepartamento(valor, cn)) {
-                cargar("");
-                this.JTFCodBuscador.setText("");
                 this.opcionAgain();
             } else {
                 this.opcionAgain();
-                this.JTFCodBuscador.setText("");
-                cargar("");
             }
 
         } else {
@@ -497,7 +488,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JTFCodBuscadorKeyReleased
 
     private void JBModificarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBModificarRegActionPerformed
-         auxiliarBoton = 2;
+        auxiliarBoton = 2;
         int fila = JTableDep.getSelectedRow();
         if (fila >= 0) {
             //Activando cajas de texto y botones
@@ -514,12 +505,11 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
             this.JTFPresupAnual.setEnabled(true);
 
             //Pasando datos de la tabla a cada caja de texto
-             this.JTFCodDep.setText(JTableDep.getValueAt(fila, 0).toString());
+            this.JTFCodDep.setText(JTableDep.getValueAt(fila, 0).toString());
             this.JTFCodCT.setText(JTableDep.getValueAt(fila, 1).toString());
             this.JTFNomDep.setText(JTableDep.getValueAt(fila, 2).toString());
             this.JTFPresupAnual.setText(JTableDep.getValueAt(fila, 3).toString());
 
-            this.JTFCodBuscador.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }

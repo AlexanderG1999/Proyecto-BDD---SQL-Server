@@ -77,6 +77,8 @@ public class JFInArea extends javax.swing.JInternalFrame {
         this.JTFAmbitoArea.setText("");
         this.JTFCodBuscador.setText("");
         this.JTADescripArea.setText("");
+
+        cargar("");
     }
 
     @SuppressWarnings("unchecked")
@@ -407,21 +409,17 @@ public class JFInArea extends javax.swing.JInternalFrame {
             //Cuando el usuario verifica que SI desea guardar el AREA
             if (area.guardarArea(cn)) {
                 this.opcionAgain();
-                cargar("");
                 //Cuando el usuario verifica que NO desea guardar el AREA   
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         } else {//AuxBoton = 2 es decir modificar empleado
             //Cuando el usuario verifica que SI desea guardar el AREA 
             if (area.modificarArea(codigo, cn)) {
                 this.opcionAgain();
-                cargar("");
                 //Cuando el usuario verifica que NO desea guardar el AREA    
             } else {
                 this.opcionAgain();
-                cargar("");
             }
         }
     }//GEN-LAST:event_JBGuardarCambiosActionPerformed
@@ -443,7 +441,6 @@ public class JFInArea extends javax.swing.JInternalFrame {
 
             this.JBGuardarCambios.setEnabled(false);
             this.JBCancelarCambios.setEnabled(false);
-            this.JTFCodArea.setEditable(true);
             this.JTFCodArea.setEnabled(false);
             this.JTFAmbitoArea.setEnabled(false);
             this.JTADescripArea.setEnabled(false);
@@ -453,16 +450,10 @@ public class JFInArea extends javax.swing.JInternalFrame {
             this.JTFAmbitoArea.setText(JTableArea.getValueAt(fila, 1).toString());
             this.JTADescripArea.setText(JTableArea.getValueAt(fila, 2).toString());
 
-            this.JTFCodBuscador.setText("");
-
             if (Area.eliminarArea(valor, cn)) {
-                cargar("");
-                this.JTFCodBuscador.setText("");
                 this.opcionAgain();
             } else {
                 this.opcionAgain();
-                this.JTFCodBuscador.setText("");
-                cargar("");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
@@ -481,7 +472,6 @@ public class JFInArea extends javax.swing.JInternalFrame {
             this.JBGuardarCambios.setEnabled(true);
             this.JBCancelarCambios.setEnabled(true);
             this.JTFCodArea.setEnabled(true);
-            this.JTFCodArea.setEditable(false);
             this.JTFAmbitoArea.setEnabled(true);
             this.JTADescripArea.setEnabled(true);
 
@@ -489,8 +479,7 @@ public class JFInArea extends javax.swing.JInternalFrame {
             this.JTFCodArea.setText(JTableArea.getValueAt(fila, 0).toString());
             this.JTFAmbitoArea.setText(JTableArea.getValueAt(fila, 1).toString());
             this.JTADescripArea.setText(JTableArea.getValueAt(fila, 2).toString());
-
-            this.JTFCodBuscador.setText("");
+            
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }
