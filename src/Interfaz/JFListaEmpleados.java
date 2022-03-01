@@ -44,9 +44,7 @@ public class JFListaEmpleados extends javax.swing.JFrame {
             "NÚM. HIJOS", "TELÉFONO", "SALARIO", "FECHA DE CONTRATO"};
         String[] registros = new String[8];
 
-        String querry = "SELECT E.EMP_CEDULA, E.CT_CODIGO, E.DEP_CODIGO, E.EMP_NOMBRE, E.EMP_NUMHIJOS, E.EMP_TELEFONO, N.EMP_SALARIO, N.EMP_FECHACONTRATO FROM EMPLEADO AS E\n"
-                + "INNER JOIN NOMINAS_EMPLEADOS AS N ON E.EMP_CEDULA = N.EMP_CEDULA "
-                + "WHERE EMP_CEDULA LIKE '%" + valor + "%'";
+        String querry = "SELECT * FROM VISTA_EMPLEADO WHERE EMP_CEDULA = " + valor;
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {

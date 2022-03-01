@@ -54,8 +54,11 @@ public class Experiencia {
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea guardar el Registro?", "Mensaje", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
             try {
-                String querry = "INSERT INTO experiencia "
-                        + "values (" + this.empCedula + "," + this.CT_Codigo + "," + this.areaCod + ")";
+                String querry = "set xact_abort on\n"
+                        + "begin distributed transaction\n"
+                        + "INSERT INTO vista_experiencia "
+                        + "values (" + this.empCedula + "," + this.CT_Codigo + "," + this.areaCod + ")"
+                        + "commit transaction";
 
                 //Ingresando datos a SQL Server
                 Statement stmt = cn.createStatement();//Envia tipos de sentencias sql
@@ -78,11 +81,13 @@ public class Experiencia {
         if (opcion == JOptionPane.YES_OPTION) {
             try {
                 //Envia tipos de sentencias sql y tambien trabaja con parametros
-                PreparedStatement pps = cn.prepareStatement("UPDATE experiencia SET "
-                        + "EMP_CEDULA=" + this.empCedula + ","
-                        + "CT_CODIGO=" + this.CT_Codigo + ","
+                PreparedStatement pps = cn.prepareStatement("set xact_abort on\n"
+                        + "begin distributed transaction\n"
+                        + "UPDATE vista_experiencia SET "
                         + "AREA_COD=" + this.areaCod + " "
-                        + "WHERE EMP_CEDULA = " + valor);
+                        + "WHERE EMP_CEDULA = " + valor + "\n"
+                        + "commit transaction");
+
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro Actualizado.", "Mensaje", JOptionPane.DEFAULT_OPTION);
                 resultado = true;
@@ -103,7 +108,11 @@ public class Experiencia {
         if (opcion == JOptionPane.YES_OPTION) {
             try {
                 //Eliminando el registro solicitado
-                PreparedStatement pps = cn.prepareStatement("DELETE FROM experiencia WHERE EMP_CEDULA=" + valor);
+                PreparedStatement pps = cn.prepareStatement("set xact_abort on\n"
+                        + "begin distributed transaction\n"
+                        + "DELETE FROM vista_experiencia WHERE EMP_CEDULA=" + valor + "\n"
+                        + "commit transaction");
+
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro eliminado con éxito.", "Mensaje", JOptionPane.DEFAULT_OPTION);
 

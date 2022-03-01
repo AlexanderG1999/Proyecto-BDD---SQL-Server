@@ -1,5 +1,10 @@
 package Interfaz;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -7,21 +12,55 @@ import javax.swing.ImageIcon;
  * @author GRUPO 4
  */
 public class JFMenuPrincipal extends javax.swing.JFrame {
-
+    
     JFInEmpleado jfEmpleado;
     JFInArea jfArea;
     JFInCT jfCT;
     JFInDepartamento jfDep;
     JFInExperiencia jfExp;
     JFInHijo jfHijo;
-
+    
     public JFMenuPrincipal() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/epn.png")).getImage());
         this.setExtendedState(MAXIMIZED_BOTH);
-
+        
+        if (!getHostname()) { //Se verifica el usuario que ingresa
+            this.JBCT.setEnabled(false);
+            this.JBArea.setEnabled(false);
+        }
     }
 
+    /*Funcion para verificar si el usuario que ingresa es ALEXANDER para activar las tablas
+    CENTRO_DE_TRABAJO y AREA dado que ALEXANDER es el distribuidor de esa replicacion unidireccional*/
+    public boolean getHostname() {
+        String hostname = "";
+        String cmd = "hostname"; //Conocer en que PC se esta ejecutando
+
+        try {
+            Process p;
+            p = Runtime.getRuntime().exec(cmd);
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            //Resultado comando Hostname
+            hostname = br.readLine();
+            
+            p.waitFor();
+            p.destroy();
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JFMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JFMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (hostname.equalsIgnoreCase("ALEXANDER")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
