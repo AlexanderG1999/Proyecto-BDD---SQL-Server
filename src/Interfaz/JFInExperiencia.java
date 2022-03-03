@@ -43,7 +43,7 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
         String[] titulos = {"NÚM. CÉDULA EMPLEADO", "CÓDIGO CENTRO", "CÓDIGO ÁREA"};
         String[] registros = new String[3];
 
-        String querry = "SELECT * FROM EXPERIENCIA where EMP_CEDULA LIKE '%" + valor + "%'";
+        String querry = "SELECT * FROM vista_experiencia where EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {

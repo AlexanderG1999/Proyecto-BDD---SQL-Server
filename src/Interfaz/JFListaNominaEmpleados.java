@@ -12,21 +12,21 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author GRUPO 4
  */
-public class JFListaEmpleados extends javax.swing.JFrame {
+public class JFListaNominaEmpleados extends javax.swing.JFrame {
 
     DefaultTableModel model;
     Conexion cc;
     Connection cn;
     private String aux; //Conocer que JFInterno esta solicitando información
 
-    public JFListaEmpleados() {
+    public JFListaNominaEmpleados() {
         initComponents();
         this.setLocationRelativeTo(null);
         cc = new Conexion();
         cn = cc.getConexion();
         cargar("");
         //Metodo para cerrar la ventana especifica en la que se encuentra
-        setDefaultCloseOperation(JFListaEmpleados.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFListaNominaEmpleados.DISPOSE_ON_CLOSE);
     }
 
     public String getAux() {
@@ -40,16 +40,11 @@ public class JFListaEmpleados extends javax.swing.JFrame {
     //Se extrae lo que tenemos en la base de datos de la tabla EMPLEADO
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
-        String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO",
-            "NÚM. HIJOS", "TELÉFONO", "SALARIO", "FECHA DE CONTRATO"};
-        String[] registros = new String[8];
+        String[] titulos = {"NÚM. CÉDULA", "SALARIO", "FECHA DE CONTRATO"};
+        String[] registros = new String[3];
 
-        String querry = "select V.EMP_CEDULA, V.CT_CODIGO, V.DEP_CODIGO, V.EMP_NOMBRE, "
-                + "V.EMP_NUMHIJOS, V.EMP_TELEFONO, N.EMP_SALARIO, N.EMP_FECHACONTRATO "
-                + "from vista_empleado AS V\n"
-                + "INNER JOIN [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS AS N "
-                + "ON V.EMP_CEDULA = N.EMP_CEDULA "
-                + "WHERE V.EMP_CEDULA LIKE '%" + valor + "%'";
+        String querry = "select * from [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS "
+                + "WHERE EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
@@ -59,13 +54,8 @@ public class JFListaEmpleados extends javax.swing.JFrame {
             while (rs.next()) {
                 //Se da la informacion a cada columna que se extrae de rs
                 registros[0] = rs.getString("EMP_CEDULA");
-                registros[1] = rs.getString("CT_CODIGO");
-                registros[2] = rs.getString("DEP_CODIGO");
-                registros[3] = rs.getString("EMP_NOMBRE");
-                registros[4] = rs.getString("EMP_NUMHIJOS");
-                registros[5] = rs.getString("EMP_TELEFONO");
-                registros[6] = rs.getString("EMP_SALARIO");
-                registros[7] = rs.getString("EMP_FECHACONTRATO");
+                registros[1] = rs.getString("EMP_SALARIO");
+                registros[2] = rs.getString("EMP_FECHACONTRATO");
 
                 model.addRow(registros);//Se ingresa la informacion al model
             }
@@ -82,12 +72,11 @@ public class JFListaEmpleados extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         JTFCodFiltrar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        JBAceptar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         JTableEmpleado = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LISTA DE EMPLEADOS");
+        setTitle("NÓMINA DE EMPLEADOS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar"));
 
@@ -98,13 +87,6 @@ public class JFListaEmpleados extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Núm. Cédula:");
-
-        JBAceptar.setText("ACEPTAR");
-        JBAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBAceptarActionPerformed(evt);
-            }
-        });
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -134,8 +116,6 @@ public class JFListaEmpleados extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(JTFCodFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(JBAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -145,10 +125,9 @@ public class JFListaEmpleados extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFCodFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(JBAceptar))
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -176,27 +155,6 @@ public class JFListaEmpleados extends javax.swing.JFrame {
         cargar(this.JTFCodFiltrar.getText());
     }//GEN-LAST:event_JTFCodFiltrarKeyReleased
 
-    private void JBAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAceptarActionPerformed
-        int fila = JTableEmpleado.getSelectedRow();
-        if (fila >= 0) {
-            if (this.aux.equalsIgnoreCase("CT")) {
-                JFInCT.JTFNumCedulaJefe.setText(JTableEmpleado.getValueAt(fila, 0).toString());
-                this.dispose();
-            }
-            if (this.aux.equalsIgnoreCase("Experiencia")) {
-                JFInExperiencia.JTFNumCedEmp.setText(JTableEmpleado.getValueAt(fila, 0).toString());
-                this.dispose();
-            }
-            if (this.aux.equalsIgnoreCase("Hijo")) {
-                JFInHijo.JTFNumCedTutor.setText(JTableEmpleado.getValueAt(fila, 0).toString());
-                this.dispose();
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
-        }
-    }//GEN-LAST:event_JBAceptarActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -214,27 +172,28 @@ public class JFListaEmpleados extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFListaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFListaNominaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFListaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFListaNominaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFListaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFListaNominaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFListaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFListaNominaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFListaEmpleados().setVisible(true);
+                new JFListaNominaEmpleados().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JBAceptar;
     private javax.swing.JTextField JTFCodFiltrar;
     private javax.swing.JTable JTableEmpleado;
     private javax.swing.JLabel jLabel1;
