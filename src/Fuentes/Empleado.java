@@ -120,10 +120,10 @@ public class Empleado {
         if (opcion == JOptionPane.YES_OPTION) {
             try {
                 String querry1 = "set xact_abort on "
-                        + "begin distributed transaction "
+                        //+ "begin distributed transaction "
                         + "insert into vista_empleado values (" + this.numCedula + "," + this.CT_Codigo + "," + this.depCodigo
-                        + ",'" + this.nombre + "'" + "," + this.numHijos + "," + this.numTelefono + ") "
-                        + "commit transaction";
+                        + ",'" + this.nombre + "'" + "," + this.numHijos + "," + this.numTelefono + ") ";
+                        //+ "commit transaction";
 
                 String querry2 = "INSERT INTO [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS "
                         + "values (" + this.numCedula + "," + this.salario + ",'" + this.fechaContrato + "')";
@@ -152,14 +152,14 @@ public class Empleado {
             try {
                 //Envia tipos de sentencias sql y tambien trabaja con parametros
                 PreparedStatement pps1 = cn.prepareStatement("set xact_abort on\n"
-                        + "begin distributed transaction\n"
+                        //+ "begin distributed transaction\n"
                         + "UPDATE vista_empleado SET "
                         + "DEP_CODIGO=" + this.depCodigo + ","
                         + "EMP_NOMBRE='" + this.nombre + "',"
                         + "EMP_NUMHIJOS=" + this.numHijos + ","
                         + "EMP_TELEFONO=" + this.numTelefono + " "
-                        + "WHERE EMP_CEDULA = " + valor + "\n"
-                        + "commit transaction");
+                        + "WHERE EMP_CEDULA = " + valor);
+                        //+ "commit transaction");
 
                 PreparedStatement pps2 = cn.prepareStatement("UPDATE [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS SET "
                         + "EMP_SALARIO=" + this.salario + ","
@@ -189,9 +189,9 @@ public class Empleado {
             try {
                 //Eliminando el registro solicitado
                 PreparedStatement pps1 = cn.prepareStatement("set xact_abort on\n"
-                        + "begin distributed transaction\n"
-                        + "DELETE FROM vista_empleado where EMP_CEDULA=" + valor + "\n"
-                        + "commit transaction");
+                        //+ "begin distributed transaction\n"
+                        + "DELETE FROM vista_empleado where EMP_CEDULA=" + valor);
+                        //+ "commit transaction");
 
                 PreparedStatement pps2 = cn.prepareStatement("DELETE FROM [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS where EMP_CEDULA=" + valor);
 

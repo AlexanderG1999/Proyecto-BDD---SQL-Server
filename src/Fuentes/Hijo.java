@@ -90,11 +90,11 @@ public class Hijo {
         if (opcion == JOptionPane.YES_OPTION) {
             try {
                 String querry = "set xact_abort on\n"
-                        + "begin distributed transaction\n"
+                        //+ "begin distributed transaction\n"
                         + "INSERT INTO vista_hijos "
                         + "values (" + this.codigo + "," + this.CT_Codigo + "," + this.empCedula + ",'"
-                        + this.nombre + "','" + this.fechaNac + "') "
-                        + "commit transaction";
+                        + this.nombre + "','" + this.fechaNac + "') ";
+                        //+ "commit transaction";
 
                 //Ingresando datos a SQL Server
                 Statement stmt = cn.createStatement();//Envia tipos de sentencias sql
@@ -118,13 +118,13 @@ public class Hijo {
             try {
                 //Envia tipos de sentencias sql y tambien trabaja con parametros
                 PreparedStatement pps = cn.prepareStatement("set xact_abort on\n"
-                        + "begin distributed transaction\n"
+                        //+ "begin distributed transaction\n"
                         + "UPDATE vista_hijos SET "
                         + "EMP_CEDULA=" + this.empCedula + ","
                         + "HIJO_NOMBRE='" + this.nombre + "',"
                         + "HIJO_FECHANAC='" + this.fechaNac + "' "
-                        + "WHERE HIJO_CODIGO = " + valor + "\n"
-                        + "commit transaction");
+                        + "WHERE HIJO_CODIGO = " + valor);
+                        //+ "commit transaction");
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro Actualizado.", "Mensaje", JOptionPane.DEFAULT_OPTION);
                 resultado = true;
@@ -146,9 +146,9 @@ public class Hijo {
             try {
                 //Eliminando el registro solicitado
                 PreparedStatement pps = cn.prepareStatement("set xact_abort on\n"
-                        + "begin distributed transaction\n"
-                        + "DELETE FROM vista_hijos WHERE HIJO_CODIGO=" + valor + "\n"
-                        + "commit transaction");
+                        //+ "begin distributed transaction\n"
+                        + "DELETE FROM vista_hijos WHERE HIJO_CODIGO=" + valor);
+                        //+ "commit transaction");
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro eliminado con éxito.", "Mensaje", JOptionPane.DEFAULT_OPTION);
 
