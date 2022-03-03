@@ -47,10 +47,15 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
         String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO",
-            "NÚM. HIJOS", "TELÉFONO"};
-        String[] registros = new String[6];
+            "NÚM. HIJOS", "TELÉFONO", "SALARIO", "FECHA DE CONTRATO"};
+        String[] registros = new String[8];
 
-        String querry = "SELECT * FROM vista_empleado WHERE EMP_CEDULA LIKE '%" + valor + "%'";
+        String querry = "select V.EMP_CEDULA, V.CT_CODIGO, V.DEP_CODIGO, V.EMP_NOMBRE, "
+                + "V.EMP_NUMHIJOS, V.EMP_TELEFONO, N.EMP_SALARIO, N.EMP_FECHACONTRATO "
+                + "from vista_empleado AS V\n"
+                + "INNER JOIN [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS AS N "
+                + "ON V.EMP_CEDULA = N.EMP_CEDULA "
+                + "WHERE V.EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
@@ -65,7 +70,9 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 registros[3] = rs.getString("EMP_NOMBRE");
                 registros[4] = rs.getString("EMP_NUMHIJOS");
                 registros[5] = rs.getString("EMP_TELEFONO");
-                
+                registros[6] = rs.getString("EMP_SALARIO");
+                registros[7] = rs.getString("EMP_FECHACONTRATO");
+
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableEmpleado.setModel(model);//Seteamos la tabla con los datos 
@@ -635,10 +642,10 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JBGuardarCambios.setEnabled(true);
             this.JBCancelarCambios.setEnabled(true);
             this.JTFNomApeEmp.setEnabled(true);
-            this.JTFCodCT.setEditable(false);
-            this.JTFCodDep.setEditable(false);
-            this.JTFNumCedEmp.setEditable(false);
-            this.JBSearchCT.setEnabled(true);
+            JFInEmpleado.JTFCodCT.setEnabled(false);
+            JFInEmpleado.JTFCodDep.setEnabled(false);
+            this.JTFNumCedEmp.setEnabled(false);
+            this.JBSearchCT.setEnabled(false);
             this.JTFNumHijos.setEnabled(true);
             this.JTFTelef.setEnabled(true);
             this.JBSearchDep.setEnabled(true);

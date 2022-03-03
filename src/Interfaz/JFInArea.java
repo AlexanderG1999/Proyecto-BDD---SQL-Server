@@ -471,7 +471,7 @@ public class JFInArea extends javax.swing.JInternalFrame {
 
             this.JBGuardarCambios.setEnabled(true);
             this.JBCancelarCambios.setEnabled(true);
-            this.JTFCodArea.setEnabled(true);
+            this.JTFCodArea.setEnabled(false);
             this.JTFAmbitoArea.setEnabled(true);
             this.JTADescripArea.setEnabled(true);
 

@@ -29,6 +29,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         this.JTFCodDep.setEnabled(false);
         this.JTFNomDep.setEnabled(false);
         this.JTFPresupAnual.setEnabled(false);
+        this.JBSearchCodCT.setEnabled(false);
         cc = new Conexion();
         cn = cc.getConexion();
         cargar("");

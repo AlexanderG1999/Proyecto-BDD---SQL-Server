@@ -180,9 +180,11 @@ public class JFListaCT extends javax.swing.JFrame {
             }
             if (this.aux.equalsIgnoreCase("Experiencia")) {
                 JFInExperiencia.JTFCodCT.setText(JTableCT.getValueAt(fila, 0).toString());
+                this.dispose();
             }
             if (this.aux.equalsIgnoreCase("Hijo")) {
                 JFInHijo.JTFCodCT.setText(JTableCT.getValueAt(fila, 0).toString());
+                this.dispose();
             }
 
         } else {

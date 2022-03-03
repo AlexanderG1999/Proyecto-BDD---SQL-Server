@@ -47,7 +47,8 @@ public class JFInHijo extends javax.swing.JInternalFrame {
         String[] titulos = {"CÓDIGO", "CÓDIGO CENTRO", "NÚM. CÉDULA TUTOR", "NOMBRE HIJO", "FECHA DE NACIMIENTO"};
         String[] registros = new String[5];
 
-        String querry = "SELECT * FROM HIJOS where HIJO_CODIGO LIKE '%" + valor + "%'";
+        String querry = "SELECT * FROM vista_hijos where HIJO_CODIGO LIKE '%" + valor + "%' "
+                + "ORDER BY HIJO_CODIGO ASC";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
@@ -456,8 +457,8 @@ public class JFInHijo extends javax.swing.JInternalFrame {
 
     private void JBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarCambiosActionPerformed
         int codigoHijo = Integer.parseInt(this.JTFCodHijo.getText());
-        int centroTrabajo = Integer.parseInt(this.JTFCodCT.getText());
-        int numCITutor = Integer.parseInt(this.JTFNumCedTutor.getText());
+        int centroTrabajo = Integer.parseInt(JTFCodCT.getText());
+        int numCITutor = Integer.parseInt(JTFNumCedTutor.getText());
         String nombreHijo = this.JTFNombApe.getText();
         Date date = JDCFechaNac.getDate();//Se crea un objeto del tipo date y se extrae del jCalendar
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//Se le da un formato de la base de datos
@@ -549,16 +550,17 @@ public class JFInHijo extends javax.swing.JInternalFrame {
             this.JBModificarReg.setEnabled(false);
             this.JBBorrarReg.setEnabled(false);
 
-            this.JBGuardarCambios.setEnabled(false);
-            this.JBCancelarCambios.setEnabled(false);
+            this.JBGuardarCambios.setEnabled(true);
+            this.JBCancelarCambios.setEnabled(true);
+
             this.JTFCodBuscador.setEnabled(true);
             this.JTFCodHijo.setEnabled(false);
             JFInHijo.JTFCodCT.setEnabled(false);
             JFInHijo.JTFNumCedTutor.setEnabled(false);
-            this.JTFNombApe.setEnabled(false);
-            this.JDCFechaNac.setEnabled(false);
+            this.JTFNombApe.setEnabled(true);
+            this.JDCFechaNac.setEnabled(true);
             this.JBSearchCT.setEnabled(false);
-            this.JBSearchTutor.setEnabled(false);
+            this.JBSearchTutor.setEnabled(true);
 
             //Pasando datos de la tabla a cada caja de texto
             this.JTFCodHijo.setText(JTableHijo.getValueAt(fila, 0).toString());

@@ -41,10 +41,10 @@ public class JFListaEmpleados extends javax.swing.JFrame {
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
         String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO",
-            "NÚM. HIJOS", "TELÉFONO", "SALARIO", "FECHA DE CONTRATO"};
-        String[] registros = new String[8];
+            "NÚM. HIJOS", "TELÉFONO"};
+        String[] registros = new String[6];
 
-        String querry = "SELECT * FROM VISTA_EMPLEADO WHERE EMP_CEDULA = " + valor;
+        String querry = "SELECT * FROM vista_empleado WHERE EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
@@ -59,8 +59,7 @@ public class JFListaEmpleados extends javax.swing.JFrame {
                 registros[3] = rs.getString("EMP_NOMBRE");
                 registros[4] = rs.getString("EMP_NUMHIJOS");
                 registros[5] = rs.getString("EMP_TELEFONO");
-                registros[6] = rs.getString("EMP_SALARIO");
-                registros[7] = rs.getString("EMP_FECHACONTRATO");
+
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableEmpleado.setModel(model);//Seteamos la tabla con los datos 

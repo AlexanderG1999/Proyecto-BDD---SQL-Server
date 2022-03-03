@@ -119,7 +119,7 @@ public class Hijo {
                 //Envia tipos de sentencias sql y tambien trabaja con parametros
                 PreparedStatement pps = cn.prepareStatement("set xact_abort on\n"
                         + "begin distributed transaction\n"
-                        + "UPDATE hijos SET "
+                        + "UPDATE vista_hijos SET "
                         + "EMP_CEDULA=" + this.empCedula + ","
                         + "HIJO_NOMBRE='" + this.nombre + "',"
                         + "HIJO_FECHANAC='" + this.fechaNac + "' "
@@ -147,7 +147,7 @@ public class Hijo {
                 //Eliminando el registro solicitado
                 PreparedStatement pps = cn.prepareStatement("set xact_abort on\n"
                         + "begin distributed transaction\n"
-                        + "DELETE FROM hijos WHERE HIJO_CODIGO=" + valor + "\n"
+                        + "DELETE FROM vista_hijos WHERE HIJO_CODIGO=" + valor + "\n"
                         + "commit transaction");
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro eliminado con éxito.", "Mensaje", JOptionPane.DEFAULT_OPTION);
