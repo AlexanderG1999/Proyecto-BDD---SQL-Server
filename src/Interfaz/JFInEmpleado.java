@@ -65,9 +65,9 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 + "from vista_empleado AS V\n"
                 + "INNER JOIN [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS AS N "
                 + "ON V.EMP_CEDULA = N.EMP_CEDULA "
-                + "WHERE V.EMP_CEDULA LIKE '%" + valor + "%'";
+                + "WHERE V.EMP_CEDULA LIKE '%" + valor + "%' ORDER BY V.CT_CODIGO ASC";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
-
+        //implementar procedure para conteo de empleados
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(querry);

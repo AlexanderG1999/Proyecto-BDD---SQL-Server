@@ -58,6 +58,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableDep.setModel(model);//Seteamos la tabla con los datos 
+            //implementar procedure para suma del presupuesto anual
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
