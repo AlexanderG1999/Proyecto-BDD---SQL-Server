@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author GRUPO 1
+ * @author GRUPO 4
  */
 public class JFListaEmpleados extends javax.swing.JFrame {
 
@@ -81,6 +81,7 @@ public class JFListaEmpleados extends javax.swing.JFrame {
         JTableEmpleado = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LISTA DE EMPLEADOS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar"));
 

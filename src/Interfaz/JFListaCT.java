@@ -78,6 +78,7 @@ public class JFListaCT extends javax.swing.JFrame {
         JTableCT = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LISTA DE CENTROS DE TRABAJOS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar"));
 

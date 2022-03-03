@@ -18,6 +18,7 @@ public class JFListaDep extends javax.swing.JFrame {
     Conexion cc;
     Connection cn;
     private String aux; //Conocer que JFInterno esta solicitando información
+    private String CT;
 
     public JFListaDep() {
         initComponents();
@@ -26,7 +27,6 @@ public class JFListaDep extends javax.swing.JFrame {
         cn = cc.getConexion();
         //Metodo para cerrar la ventana especifica en la que se encuentra
         setDefaultCloseOperation(JFListaDep.DISPOSE_ON_CLOSE);
-        cargar("");
     }
 
     //Se extrae lo que tenemos en la base de datos de la tabla DEPARTAMENTO
@@ -35,7 +35,7 @@ public class JFListaDep extends javax.swing.JFrame {
         String[] titulos = {"CÓDIGO DEPARTAMENTO", "CÓDIGO CENTRO", "NOMBRE DEPARTAMENTO", "PRESUPUESTO ANUAL"};
         String[] registros = new String[4];
 
-        String querry = "SELECT * FROM vista_departamento where DEP_CODIGO LIKE '%" + valor + "%'";
+        String querry = "SELECT * FROM vista_departamento where CT_CODIGO= " + this.CT + " and DEP_NOMBRE LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
@@ -65,6 +65,15 @@ public class JFListaDep extends javax.swing.JFrame {
         this.aux = aux;
     }
 
+    public String getCT() {
+        return CT;
+    }
+
+    public void setCT(String CT) {
+        this.CT = CT;
+    }
+    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -75,8 +84,10 @@ public class JFListaDep extends javax.swing.JFrame {
         JBAceptar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         JTableDep = new javax.swing.JTable();
+        JBCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LISTA DE DEPARTAMENTOS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar"));
 
@@ -111,6 +122,13 @@ public class JFListaDep extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(JTableDep);
 
+        JBCargar.setText("CARGAR");
+        JBCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBCargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -125,7 +143,8 @@ public class JFListaDep extends javax.swing.JFrame {
                         .addComponent(JTFCodFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(JBAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JBCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,7 +154,8 @@ public class JFListaDep extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFCodFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(JBAceptar))
+                    .addComponent(JBAceptar)
+                    .addComponent(JBCargar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addContainerGap())
@@ -178,6 +198,10 @@ public class JFListaDep extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JBAceptarActionPerformed
 
+    private void JBCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarActionPerformed
+        cargar("");
+    }//GEN-LAST:event_JBCargarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,6 +242,7 @@ public class JFListaDep extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAceptar;
+    private javax.swing.JButton JBCargar;
     private javax.swing.JTextField JTFCodFiltrar;
     private javax.swing.JTable JTableDep;
     private javax.swing.JLabel jLabel1;

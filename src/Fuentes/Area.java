@@ -79,7 +79,6 @@ public class Area {
             try {
                 //Envia tipos de sentencias sql y tambien trabaja con parametros
                 PreparedStatement pps = cn.prepareStatement("UPDATE area SET "
-                        + "AREA_COD=" + this.codigo + ","
                         + "AREA_AMBITO='" + this.ambito + "',"
                         + "AREA_DESCRIPCION='" + this.descripcion + "' "
                         + "WHERE AREA_COD = " + valor);

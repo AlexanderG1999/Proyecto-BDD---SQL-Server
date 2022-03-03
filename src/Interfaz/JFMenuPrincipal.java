@@ -75,7 +75,7 @@ public class JFMenuPrincipal extends javax.swing.JFrame {
         JBExp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("EQUIPO ALFA BUENA MARAVILLA ONDA DINAMITA ESCUADRÓN LOBO");
+        setTitle("CENTRO DE DESARROLLO A.M.A");
 
         JBSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/exit.png"))); // NOI18N
         JBSalir.setText("Salir");

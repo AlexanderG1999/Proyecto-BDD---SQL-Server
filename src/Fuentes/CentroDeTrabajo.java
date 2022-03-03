@@ -100,7 +100,6 @@ public class CentroDeTrabajo {
             try {
                 //Envia tipos de sentencias sql y tambien trabaja con parametros
                 PreparedStatement pps = cn.prepareStatement("UPDATE CENTRO_DE_TRABAJO SET "
-                        + "CT_CODIGO=" + this.CT_Codigo + ","
                         + "JEFE_CEDULA=" + this.jefCedula + ","
                         + "CT_NOMBRE='" + this.nombre + "',"
                         + "CT_POBLACION=" + this.numPoblacion + ","

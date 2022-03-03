@@ -76,6 +76,7 @@ public class JFListaArea extends javax.swing.JFrame {
         JTableArea = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LISTA DE ÁREAS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar"));
 

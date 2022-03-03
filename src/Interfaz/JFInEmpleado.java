@@ -46,13 +46,11 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     //Se extrae lo que tenemos en la base de datos de la tabla EMPLEADO
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
-        String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO", 
-            "NÚM. HIJOS", "TELÉFONO", "SALARIO", "FECHA DE CONTRATO"};
-        String[] registros = new String[8];
+        String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO",
+            "NÚM. HIJOS", "TELÉFONO"};
+        String[] registros = new String[6];
 
-        String querry = "SELECT E.EMP_CEDULA, E.CT_CODIGO, E.DEP_CODIGO, E.EMP_NOMBRE, E.EMP_NUMHIJOS, E.EMP_TELEFONO, N.EMP_SALARIO, N.EMP_FECHACONTRATO FROM EMPLEADO AS E\n" +
-                        "LEFT JOIN NOMINAS_EMPLEADOS AS N ON E.EMP_CEDULA = N.EMP_CEDULA "
-                      + "WHERE E.EMP_CEDULA LIKE '%" + valor + "%'";
+        String querry = "SELECT * FROM vista_empleado WHERE EMP_CEDULA LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
 
         try {
@@ -67,8 +65,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 registros[3] = rs.getString("EMP_NOMBRE");
                 registros[4] = rs.getString("EMP_NUMHIJOS");
                 registros[5] = rs.getString("EMP_TELEFONO");
-                registros[6] = rs.getString("EMP_SALARIO");
-                registros[7] = rs.getString("EMP_FECHACONTRATO");
+                
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             JTableEmpleado.setModel(model);//Seteamos la tabla con los datos 
@@ -105,7 +102,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JTFTelef.setText("");
         this.JTFSalario.setText("");
         this.JDCFechaContra.setCalendar(null);
-        
+
         cargar("");
     }
 
@@ -544,7 +541,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         Date date = JDCFechaContra.getDate();//Se crea un objeto del tipo date y se extrae del jCalendar
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//Se le da un formato de la base de datos
         String fechaContrato = formato.format(date);//Se guarda como String y se le da el formato de arriba 
-        
+
         Empleado empleado = new Empleado(numCed, centroTrabajo, depCodigo, nombreEmp, numHijos, telefono, salario, fechaContrato);
 
         //Opcion Guardar Empleado
@@ -657,7 +654,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JTFTelef.setText(JTableEmpleado.getValueAt(fila, 5).toString());
             this.JTFSalario.setText(JTableEmpleado.getValueAt(fila, 6).toString());
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            
+
             try {
                 Date fecha = formato.parse(JTableEmpleado.getValueAt(fila, 7).toString());
                 this.JDCFechaContra.setDate(fecha);
@@ -665,7 +662,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 // Error, la cadena de texto no se puede convertir en fecha.
                 System.out.println(e);
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
         }
@@ -683,6 +680,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     private void JBSearchDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSearchDepActionPerformed
         JFListaDep jdDep = new JFListaDep();
         jdDep.setAux("Empleado");
+        jdDep.setCT(JTFCodCT.getText());
         jdDep.setVisible(true);
     }//GEN-LAST:event_JBSearchDepActionPerformed
 

@@ -64,9 +64,12 @@ public class Departamento {
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea guardar el Registro?", "Mensaje", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
             try {
-                String querry = "INSERT INTO departamento "
+                String querry = "set xact_abort on\n"
+                        + "begin distributed transaction\n"
+                        + "INSERT INTO vista_departamento "
                         + "values (" + this.depCodigo + "," + this.CT_Codigo + ",'" + this.depNombre + "',"
-                        + this.depPresuAnual + ")";
+                        + this.depPresuAnual + ") "
+                        + "commit transaction";
 
                 //Ingresando datos a SQL Server
                 Statement stmt = cn.createStatement();//Envia tipos de sentencias sql
@@ -89,12 +92,13 @@ public class Departamento {
         if (opcion == JOptionPane.YES_OPTION) {
             try {
                 //Envia tipos de sentencias sql y tambien trabaja con parametros
-                PreparedStatement pps = cn.prepareStatement("UPDATE departamento SET "
-                        + "DEP_CODIGO=" + this.depCodigo + ","
-                        + "CT_CODIGO=" + this.CT_Codigo + ","
+                PreparedStatement pps = cn.prepareStatement("set xact_abort on\n"
+                        + "begin distributed transaction\n"
+                        + "UPDATE vista_departamento SET "
                         + "DEP_NOMBRE='" + this.depNombre + "',"
                         + "DEP_PERSUPANUAL=" + this.depPresuAnual + " "
-                        + "WHERE DEP_CODIGO = " + valor);
+                        + "WHERE DEP_CODIGO = " + valor + "\n"
+                        + "commit transaction");
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro Actualizado.", "Mensaje", JOptionPane.DEFAULT_OPTION);
                 resultado = true;
@@ -115,7 +119,10 @@ public class Departamento {
         if (opcion == JOptionPane.YES_OPTION) {
             try {
                 //Eliminando el registro solicitado
-                PreparedStatement pps = cn.prepareStatement("DELETE FROM departamento WHERE DEP_CODIGO=" + valor);
+                PreparedStatement pps = cn.prepareStatement("set xact_abort on\n"
+                        + "begin distributed transaction\n"
+                        + "DELETE FROM vista_departamento WHERE DEP_CODIGO=" + valor + "\n"
+                        + "commit transaction");
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro eliminado con éxito.", "Mensaje", JOptionPane.DEFAULT_OPTION);
 
