@@ -2,6 +2,9 @@ package Interfaz;
 
 import Fuentes.Conexion;
 import Fuentes.Empleado;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +12,8 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,6 +45,11 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         this.JBSearchCT.setEnabled(false);
         cc = new Conexion();
         cn = cc.getConexion();
+        
+        if (!getHostname()) { //Se verifica el usuario que ingresa
+            this.JBListNomEmp.setEnabled(false);
+        }
+        
         cargar("");
     }
 
@@ -78,6 +88,36 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             JTableEmpleado.setModel(model);//Seteamos la tabla con los datos 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    
+    /*Funcion para verificar si el usuario que ingresa es ALEXANDER para activar la tabla
+    NOMINA_EMPLEADOS dado que es una tabla propia del NODO PRINCIPAL*/
+    public boolean getHostname() {
+        String hostname = "";
+        String cmd = "hostname"; //Conocer en que PC se esta ejecutando
+
+        try {
+            Process p;
+            p = Runtime.getRuntime().exec(cmd);
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            //Resultado comando Hostname
+            hostname = br.readLine();
+            
+            p.waitFor();
+            p.destroy();
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JFMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JFMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (hostname.equalsIgnoreCase("ALEXANDER")) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -126,10 +166,10 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         JBBorrarReg = new javax.swing.JButton();
         JBGuardarCambios = new javax.swing.JButton();
         JBCancelarCambios = new javax.swing.JButton();
+        JBListNomEmp = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         JTFCedulaBuscador = new javax.swing.JTextField();
-        JBListNomEmp = new javax.swing.JButton();
         JPanelPrincipal = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -216,6 +256,14 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        JBListNomEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_098_Spreadsheet_183529.png"))); // NOI18N
+        JBListNomEmp.setText("Nómina Emp.");
+        JBListNomEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBListNomEmpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -224,10 +272,11 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JBNuevoReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBModificarReg, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                    .addComponent(JBModificarReg, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                     .addComponent(JBBorrarReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(JBGuardarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBCancelarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(JBCancelarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JBListNomEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -243,7 +292,9 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 .addComponent(JBGuardarCambios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JBCancelarCambios)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(JBListNomEmp)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
@@ -281,14 +332,6 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        JBListNomEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_098_Spreadsheet_183529.png"))); // NOI18N
-        JBListNomEmp.setText("Nómina Emp.");
-        JBListNomEmp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBListNomEmpActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -296,20 +339,17 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBListNomEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(JBListNomEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(129, 129, 129))
         );
 
         jSplitPane2.setLeftComponent(jPanel2);
@@ -391,7 +431,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(JTFNumCedEmp)
