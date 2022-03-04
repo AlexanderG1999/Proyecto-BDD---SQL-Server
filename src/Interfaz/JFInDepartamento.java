@@ -41,12 +41,12 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         String[] titulos = {"CÓDIGO DEPARTAMENTO", "CÓDIGO CENTRO", "NOMBRE DEPARTAMENTO", "PRESUPUESTO ANUAL"};
         String[] registros = new String[4];
         String[] totalPresup = new String[1];
-        
+
         String querry1 = "SELECT * FROM vista_departamento where DEP_CODIGO LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
-        
+
         String querry2 = "exec [DESKTOP-10M4LLF].Proyecto_Sucursal_Valle.dbo.total_presupuesto";
-        
+
         try {
             Statement st1 = cn.createStatement();
             ResultSet rs1 = st1.executeQuery(querry1);
@@ -62,7 +62,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
                 model.addRow(registros);//Se ingresa la informacion al model
             }
             rs2.next();
-            totalPresup[0] =  rs2.getString("total_presup");
+            totalPresup[0] = rs2.getString("total_presup");
             this.JLTotalPresup.setText(totalPresup[0]);
             JTableDep.setModel(model);//Seteamos la tabla con los datos 
         } catch (SQLException ex) {
@@ -294,6 +294,18 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
             }
         });
 
+        JTFCodDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTFCodDepActionPerformed(evt);
+            }
+        });
+
+        JTFNomDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTFNomDepActionPerformed(evt);
+            }
+        });
+
         JBSearchCodCT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_Searchicons-search-people2_825453.png"))); // NOI18N
         JBSearchCodCT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -486,7 +498,6 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBNuevoRegActionPerformed
 
     private void JTFPresupAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFPresupAnualActionPerformed
-
     }//GEN-LAST:event_JTFPresupAnualActionPerformed
 
     private void JBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarCambiosActionPerformed
@@ -568,8 +579,8 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
             this.JBModificarReg.setEnabled(false);
             this.JBBorrarReg.setEnabled(false);
 
-            this.JBGuardarCambios.setEnabled(false);
-            this.JBCancelarCambios.setEnabled(false);
+            this.JBGuardarCambios.setEnabled(true);
+            this.JBCancelarCambios.setEnabled(true);
 
             this.JTFCodCT.setEnabled(false);
             this.JTFCodDep.setEnabled(false);
@@ -592,6 +603,14 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         lista.setAux("Departamento");
         lista.setVisible(true);
     }//GEN-LAST:event_JBSearchCodCTActionPerformed
+
+    private void JTFCodDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFCodDepActionPerformed
+        this.JTFCodDep.transferFocus();
+    }//GEN-LAST:event_JTFCodDepActionPerformed
+
+    private void JTFNomDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFNomDepActionPerformed
+        this.JTFNomDep.transferFocus();
+    }//GEN-LAST:event_JTFNomDepActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
