@@ -59,7 +59,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         String[] titulos = {"NÚM. CÉDULA", "CÓDIGO CENTRO", "CÓDIGO DEPARTAMENTO", "NOMBRE EMPLEADO",
             "NÚM. HIJOS", "TELÉFONO", "SALARIO", "FECHA DE CONTRATO"};
         String[] registros = new String[8];
-
+        String[] totalEmp = new String[1];
+        
         String querry = "select V.EMP_CEDULA, V.CT_CODIGO, V.DEP_CODIGO, V.EMP_NOMBRE, "
                 + "V.EMP_NUMHIJOS, V.EMP_TELEFONO, N.EMP_SALARIO, N.EMP_FECHACONTRATO "
                 + "from vista_empleado AS V\n"
@@ -67,24 +68,31 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 + "ON V.EMP_CEDULA = N.EMP_CEDULA "
                 + "WHERE V.EMP_CEDULA LIKE '%" + valor + "%' ORDER BY V.CT_CODIGO ASC";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
-        //implementar procedure para conteo de empleados
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(querry);
 
-            while (rs.next()) {
+        String querry2 = "exec [DESKTOP-10M4LLF].Proyecto_Sucursal_Valle.dbo.total_empleados"; //remoto
+        
+        try {
+            Statement st1 = cn.createStatement();
+            ResultSet rs1 = st1.executeQuery(querry);
+            Statement st2 = cn.createStatement();
+            ResultSet rs2 = st2.executeQuery(querry2);
+
+            while (rs1.next()) {
                 //Se da la informacion a cada columna que se extrae de rs
-                registros[0] = rs.getString("EMP_CEDULA");
-                registros[1] = rs.getString("CT_CODIGO");
-                registros[2] = rs.getString("DEP_CODIGO");
-                registros[3] = rs.getString("EMP_NOMBRE");
-                registros[4] = rs.getString("EMP_NUMHIJOS");
-                registros[5] = rs.getString("EMP_TELEFONO");
-                registros[6] = rs.getString("EMP_SALARIO");
-                registros[7] = rs.getString("EMP_FECHACONTRATO");
+                registros[0] = rs1.getString("EMP_CEDULA");
+                registros[1] = rs1.getString("CT_CODIGO");
+                registros[2] = rs1.getString("DEP_CODIGO");
+                registros[3] = rs1.getString("EMP_NOMBRE");
+                registros[4] = rs1.getString("EMP_NUMHIJOS");
+                registros[5] = rs1.getString("EMP_TELEFONO");
+                registros[6] = rs1.getString("EMP_SALARIO");
+                registros[7] = rs1.getString("EMP_FECHACONTRATO");
 
                 model.addRow(registros);//Se ingresa la informacion al model
             }
+            rs2.next();
+            totalEmp[0] =  rs2.getString("total_emp");
+            this.JLTotalEmp.setText(totalEmp[0]);
             JTableEmpleado.setModel(model);//Seteamos la tabla con los datos 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -190,6 +198,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         JDCFechaContra = new com.toedter.calendar.JDateChooser();
+        jLabel10 = new javax.swing.JLabel();
+        JLTotalEmp = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTableEmpleado = new javax.swing.JTable();
 
@@ -272,7 +282,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JBNuevoReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBModificarReg, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                    .addComponent(JBModificarReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(JBBorrarReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(JBGuardarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(JBCancelarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -294,7 +304,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 .addComponent(JBCancelarCambios)
                 .addGap(18, 18, 18)
                 .addComponent(JBListNomEmp)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
@@ -416,6 +426,13 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
 
         jLabel8.setText("FECHA DE CONTRATO:");
 
+        jLabel10.setText("TOTAL DE EMPLEADOS");
+
+        JLTotalEmp.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JLTotalEmp.setForeground(new java.awt.Color(255, 0, 0));
+        JLTotalEmp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLTotalEmp.setText("......");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -431,8 +448,9 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JDCFechaContra, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(JTFNumCedEmp)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -446,9 +464,12 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                             .addGap(18, 18, 18)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(JBSearchCT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(JBSearchDep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(JDCFechaContra, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(252, 252, 252))
+                                .addComponent(JBSearchDep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(103, 103, 103)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JLTotalEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,16 +507,18 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFTelef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel7)
+                    .addComponent(JLTotalEmp))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(JDCFechaContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -521,8 +544,8 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             .addGroup(JPanelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         JPanelPrincipalLayout.setVerticalGroup(
@@ -531,7 +554,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -543,7 +566,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 959, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -773,6 +796,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBSearchCT;
     private javax.swing.JButton JBSearchDep;
     private com.toedter.calendar.JDateChooser JDCFechaContra;
+    private javax.swing.JLabel JLTotalEmp;
     private javax.swing.JPanel JPanelPrincipal;
     private javax.swing.JTextField JTFCedulaBuscador;
     public static javax.swing.JTextField JTFCodCT;
@@ -784,6 +808,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JTextField JTFTelef;
     public static javax.swing.JTable JTableEmpleado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

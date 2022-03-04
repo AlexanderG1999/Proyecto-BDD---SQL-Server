@@ -40,25 +40,31 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         //Titulos de cada Cl y Fl
         String[] titulos = {"CÓDIGO DEPARTAMENTO", "CÓDIGO CENTRO", "NOMBRE DEPARTAMENTO", "PRESUPUESTO ANUAL"};
         String[] registros = new String[4];
-
-        String querry = "SELECT * FROM vista_departamento where DEP_CODIGO LIKE '%" + valor + "%'";
+        String[] totalPresup = new String[1];
+        
+        String querry1 = "SELECT * FROM vista_departamento where DEP_CODIGO LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
-
+        
+        String querry2 = "exec [DESKTOP-10M4LLF].Proyecto_Sucursal_Valle.dbo.total_presupuesto";
+        
         try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(querry);
-
-            while (rs.next()) {
-                //Se da la informacion a cada columna que se extrae de rs
-                registros[0] = rs.getString("DEP_CODIGO");
-                registros[1] = rs.getString("CT_CODIGO");
-                registros[2] = rs.getString("DEP_NOMBRE");
-                registros[3] = rs.getString("DEP_PRESUPANUAL");
+            Statement st1 = cn.createStatement();
+            ResultSet rs1 = st1.executeQuery(querry1);
+            Statement st2 = cn.createStatement();
+            ResultSet rs2 = st2.executeQuery(querry2);
+            while (rs1.next()) {
+                //Se da la informacion a cada columna que se extrae de rs1
+                registros[0] = rs1.getString("DEP_CODIGO");
+                registros[1] = rs1.getString("CT_CODIGO");
+                registros[2] = rs1.getString("DEP_NOMBRE");
+                registros[3] = rs1.getString("DEP_PRESUPANUAL");
 
                 model.addRow(registros);//Se ingresa la informacion al model
             }
+            rs2.next();
+            totalPresup[0] =  rs2.getString("total_presup");
+            this.JLTotalPresup.setText(totalPresup[0]);
             JTableDep.setModel(model);//Seteamos la tabla con los datos 
-            //implementar procedure para suma del presupuesto anual
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -113,8 +119,13 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         JTFNomDep = new javax.swing.JTextField();
         JTFCodCT = new javax.swing.JTextField();
         JBSearchCodCT = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        JLTotalPresup = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTableDep = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        JTFTotalEmp = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -290,6 +301,13 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel11.setText("PRESUPUESTO TOTAL");
+
+        JLTotalPresup.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JLTotalPresup.setForeground(new java.awt.Color(255, 0, 0));
+        JLTotalPresup.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JLTotalPresup.setText("......");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -310,7 +328,11 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
                         .addComponent(JTFCodCT, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(JBSearchCodCT, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JLTotalPresup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,6 +358,12 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
                     .addComponent(JTFPresupAnual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JLTotalPresup)
+                .addGap(46, 46, 46))
         );
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -361,7 +389,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
             .addGroup(JPanelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -371,11 +399,36 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jSplitPane2.setRightComponent(JPanelPrincipal);
+
+        jLabel10.setText("TOTAL DE EMPLEADOS");
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        JTFTotalEmp.setEditable(false);
+        JTFTotalEmp.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        JTFTotalEmp.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JTFTotalEmp, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(JTFTotalEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -385,6 +438,16 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jSplitPane2)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(429, 429, 429)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(19, 19, 19)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18))
+                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addContainerGap(430, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,6 +455,13 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jSplitPane2)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(253, 253, 253)
+                    .addComponent(jLabel10)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(256, Short.MAX_VALUE)))
         );
 
         pack();
@@ -531,14 +601,18 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBModificarReg;
     private javax.swing.JButton JBNuevoReg;
     private javax.swing.JButton JBSearchCodCT;
+    private javax.swing.JLabel JLTotalPresup;
     private javax.swing.JPanel JPanelPrincipal;
     private javax.swing.JTextField JTFCodBuscador;
     public static javax.swing.JTextField JTFCodCT;
     private javax.swing.JTextField JTFCodDep;
     private javax.swing.JTextField JTFNomDep;
     private javax.swing.JTextField JTFPresupAnual;
+    private javax.swing.JTextField JTFTotalEmp;
     public static javax.swing.JTable JTableDep;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -548,6 +622,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane2;
     // End of variables declaration//GEN-END:variables
