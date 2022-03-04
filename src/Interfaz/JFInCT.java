@@ -29,7 +29,6 @@ public class JFInCT extends javax.swing.JInternalFrame {
         this.JTFDireccion.setEnabled(false);
         this.JTFNomCT.setEnabled(false);
         this.JTFNumCedulaJefe.setEnabled(false);
-        this.JTFNumPob.setEnabled(false);
         this.JBSearchJefe.setEnabled(false);
         cc = new Conexion();
         cn = cc.getConexion();
@@ -39,8 +38,8 @@ public class JFInCT extends javax.swing.JInternalFrame {
     //Se extrae lo que tenemos en la base de datos de la tabla CENTRO_DE_TRABAJO
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
-        String[] titulos = {"CÓDIGO CENTRO", "NÚM. JEFE CÉDULA", "NOMBRE CENTRO", "NÚM. POBLACIÓN", "DIRECCIÓN"};
-        String[] registros = new String[5];
+        String[] titulos = {"CÓDIGO CENTRO", "NÚM. JEFE CÉDULA", "NOMBRE CENTRO", "DIRECCIÓN"};
+        String[] registros = new String[4];
 
         String querry = "SELECT * FROM CENTRO_DE_TRABAJO where CT_CODIGO LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
@@ -54,8 +53,7 @@ public class JFInCT extends javax.swing.JInternalFrame {
                 registros[0] = rs.getString("CT_CODIGO");
                 registros[1] = rs.getString("JEFE_CEDULA");
                 registros[2] = rs.getString("CT_NOMBRE");
-                registros[3] = rs.getString("CT_POBLACION");
-                registros[4] = rs.getString("CT_DIRECCION");
+                registros[3] = rs.getString("CT_DIRECCION");
 
                 model.addRow(registros);//Se ingresa la informacion al model
             }
@@ -77,7 +75,6 @@ public class JFInCT extends javax.swing.JInternalFrame {
         this.JTFDireccion.setEnabled(false);
         this.JTFNomCT.setEnabled(false);
         this.JTFNumCedulaJefe.setEnabled(false);
-        this.JTFNumPob.setEnabled(false);
         this.JBSearchJefe.setEnabled(false);
 
         this.JTFCodBuscador.setText("");
@@ -85,7 +82,6 @@ public class JFInCT extends javax.swing.JInternalFrame {
         this.JTFDireccion.setText("");
         this.JTFNomCT.setText("");
         this.JTFNumCedulaJefe.setText("");
-        this.JTFNumPob.setText("");
 
         cargar("");
 
@@ -112,10 +108,8 @@ public class JFInCT extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         JTFNomCT = new javax.swing.JTextField();
-        JTFNumPob = new javax.swing.JTextField();
         JTFCodCentro = new javax.swing.JTextField();
         JTFNumCedulaJefe = new javax.swing.JTextField();
         JBSearchJefe = new javax.swing.JButton();
@@ -281,19 +275,11 @@ public class JFInCT extends javax.swing.JInternalFrame {
 
         jLabel3.setText("NOMBRE DEL CENTRO:");
 
-        jLabel4.setText("NUM. POBLACIÓN:");
-
         jLabel5.setText("DIRECCIÓN:");
 
         JTFNomCT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JTFNomCTActionPerformed(evt);
-            }
-        });
-
-        JTFNumPob.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JTFNumPobActionPerformed(evt);
             }
         });
 
@@ -314,7 +300,6 @@ public class JFInCT extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(51, 51, 51)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -325,8 +310,7 @@ public class JFInCT extends javax.swing.JInternalFrame {
                             .addComponent(JTFNomCT, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(JBSearchJefe, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JTFDireccion)
-                    .addComponent(JTFNumPob))
+                    .addComponent(JTFDireccion))
                 .addContainerGap(275, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -349,15 +333,11 @@ public class JFInCT extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(JTFNomCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JTFNumPob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -393,7 +373,7 @@ public class JFInCT extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -430,26 +410,20 @@ public class JFInCT extends javax.swing.JInternalFrame {
         this.JBCancelarCambios.setEnabled(true);
 
         this.JTFCodCentro.setEnabled(true);
-        JTFNumCedulaJefe.setEnabled(true);
+        JTFNumCedulaJefe.setEnabled(false);
         this.JTFNomCT.setEnabled(true);
-        this.JTFNumPob.setEnabled(true);
         this.JTFDireccion.setEnabled(true);
         this.JBSearchJefe.setEnabled(true);
 
     }//GEN-LAST:event_JBNuevoRegActionPerformed
 
-    private void JTFNumPobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFNumPobActionPerformed
-        this.JTFNumPob.transferFocus();
-    }//GEN-LAST:event_JTFNumPobActionPerformed
-
     private void JBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarCambiosActionPerformed
         int CT_Codigo = Integer.parseInt(this.JTFCodCentro.getText());
         int jefCedula = Integer.parseInt(JTFNumCedulaJefe.getText());
         String nombre = this.JTFNomCT.getText();
-        int numPoblacion = Integer.parseInt(this.JTFNumPob.getText());
         String direccion = this.JTFDireccion.getText();
 
-        CentroDeTrabajo ct = new CentroDeTrabajo(CT_Codigo, jefCedula, nombre, numPoblacion, direccion);
+        CentroDeTrabajo ct = new CentroDeTrabajo(CT_Codigo, jefCedula, nombre, direccion);
 
         //Opcion Guardar
         if (auxiliarBoton == 1) {
@@ -492,8 +466,7 @@ public class JFInCT extends javax.swing.JInternalFrame {
             this.JTFCodCentro.setText(JTableCT.getValueAt(fila, 0).toString());
             JTFNumCedulaJefe.setText(JTableCT.getValueAt(fila, 1).toString());
             this.JTFNomCT.setText(JTableCT.getValueAt(fila, 2).toString());
-            this.JTFNumPob.setText(JTableCT.getValueAt(fila, 3).toString());
-            this.JTFDireccion.setText(JTableCT.getValueAt(fila, 4).toString());
+            this.JTFDireccion.setText(JTableCT.getValueAt(fila, 3).toString());
 
             if (CentroDeTrabajo.eliminarCT(valor, cn)) {
                 this.opcionAgain();
@@ -522,7 +495,6 @@ public class JFInCT extends javax.swing.JInternalFrame {
             this.JBGuardarCambios.setEnabled(true);
             this.JBCancelarCambios.setEnabled(true);
             this.JTFNomCT.setEnabled(true);
-            this.JTFNumPob.setEnabled(true);
             this.JTFDireccion.setEnabled(true);
             this.JBSearchJefe.setEnabled(true);
 
@@ -530,8 +502,7 @@ public class JFInCT extends javax.swing.JInternalFrame {
             this.JTFCodCentro.setText(JTableCT.getValueAt(fila, 0).toString());
             JTFNumCedulaJefe.setText(JTableCT.getValueAt(fila, 1).toString());
             this.JTFNomCT.setText(JTableCT.getValueAt(fila, 2).toString());
-            this.JTFNumPob.setText(JTableCT.getValueAt(fila, 3).toString());
-            this.JTFDireccion.setText(JTableCT.getValueAt(fila, 4).toString());
+            this.JTFDireccion.setText(JTableCT.getValueAt(fila, 3).toString());
 
         } else {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un REGISTRO.", "Mensaje", JOptionPane.DEFAULT_OPTION);
@@ -562,12 +533,10 @@ public class JFInCT extends javax.swing.JInternalFrame {
     private javax.swing.JTextField JTFDireccion;
     private javax.swing.JTextField JTFNomCT;
     public static javax.swing.JTextField JTFNumCedulaJefe;
-    private javax.swing.JTextField JTFNumPob;
     public static javax.swing.JTable JTableCT;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

@@ -15,5 +15,5 @@ public class Main {
         JFMenuPrincipal menu = new JFMenuPrincipal();
         menu.setVisible(true);
     }
-    
+
 }

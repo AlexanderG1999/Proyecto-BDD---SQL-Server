@@ -40,8 +40,8 @@ public class JFListaCT extends javax.swing.JFrame {
     //Se extrae lo que tenemos en la base de datos de la tabla CENTRO_DE_TRABAJO
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
-        String[] titulos = {"CÓDIGO CENTRO", "NÚM. JEFE CÉDULA", "NOMBRE CENTRO", "NÚM. POBLACIÓN", "DIRECCIÓN"};
-        String[] registros = new String[5];
+        String[] titulos = {"CÓDIGO CENTRO", "NÚM. JEFE CÉDULA", "NOMBRE CENTRO", "DIRECCIÓN"};
+        String[] registros = new String[4];
 
         String querry = "SELECT * FROM CENTRO_DE_TRABAJO where CT_CODIGO LIKE '%" + valor + "%'";
         model = new DefaultTableModel(null, titulos);// Le damos el formato
@@ -55,8 +55,7 @@ public class JFListaCT extends javax.swing.JFrame {
                 registros[0] = rs.getString("CT_CODIGO");
                 registros[1] = rs.getString("JEFE_CEDULA");
                 registros[2] = rs.getString("CT_NOMBRE");
-                registros[3] = rs.getString("CT_POBLACION");
-                registros[4] = rs.getString("CT_DIRECCION");
+                registros[3] = rs.getString("CT_DIRECCION");
 
                 model.addRow(registros);//Se ingresa la informacion al model
             }

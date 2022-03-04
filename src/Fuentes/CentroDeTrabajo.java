@@ -18,14 +18,12 @@ public class CentroDeTrabajo {
     private int CT_Codigo;
     private int jefCedula;
     private String nombre;
-    private int numPoblacion;
     private String direccion;
 
-    public CentroDeTrabajo(int CT_Codigo, int jefCedula, String nombre, int numPoblacion, String direccion) {
+    public CentroDeTrabajo(int CT_Codigo, int jefCedula, String nombre, String direccion) {
         this.CT_Codigo = CT_Codigo;
         this.jefCedula = jefCedula;
         this.nombre = nombre;
-        this.numPoblacion = numPoblacion;
         this.direccion = direccion;
     }
 
@@ -53,14 +51,6 @@ public class CentroDeTrabajo {
         this.nombre = nombre;
     }
 
-    public int getNumPoblacion() {
-        return numPoblacion;
-    }
-
-    public void setNumPoblacion(int numPoblacion) {
-        this.numPoblacion = numPoblacion;
-    }
-
     public String getDireccion() {
         return direccion;
     }
@@ -76,7 +66,7 @@ public class CentroDeTrabajo {
             try {
                 String querry = "INSERT INTO CENTRO_DE_TRABAJO "
                         + "values (" + this.CT_Codigo + "," + this.jefCedula + ",'" + this.nombre + "',"
-                        + this.numPoblacion + ",'" + this.direccion + "')";
+                        + "'" + this.direccion + "')";
 
                 //Ingresando datos a SQL Server
                 Statement stmt = cn.createStatement();//Envia tipos de sentencias sql
@@ -102,7 +92,6 @@ public class CentroDeTrabajo {
                 PreparedStatement pps = cn.prepareStatement("UPDATE CENTRO_DE_TRABAJO SET "
                         + "JEFE_CEDULA=" + this.jefCedula + ","
                         + "CT_NOMBRE='" + this.nombre + "',"
-                        + "CT_POBLACION=" + this.numPoblacion + ","
                         + "CT_DIRECCION='" + this.direccion + "' "
                         + "WHERE CT_CODIGO = " + valor);
                 pps.executeUpdate();
