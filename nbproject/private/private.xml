@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ricar/OneDrive/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Interfaz/JFInEmpleado.java</file>
-            <file>file:/C:/Users/ricar/OneDrive/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Fuentes/Main.java</file>
-            <file>file:/C:/Users/ricar/OneDrive/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Interfaz/JFInDepartamento.java</file>
+            <file>file:/C:/Users/leomi/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Fuentes/Hijo.java</file>
+            <file>file:/C:/Users/leomi/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Fuentes/Area.java</file>
+            <file>file:/C:/Users/leomi/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Fuentes/Departamento.java</file>
+            <file>file:/C:/Users/leomi/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Fuentes/Experiencia.java</file>
+            <file>file:/C:/Users/leomi/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Interfaz/JFInDepartamento.java</file>
+            <file>file:/C:/Users/leomi/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Fuentes/Empleado.java</file>
+            <file>file:/C:/Users/leomi/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Interfaz/JFInHijo.java</file>
+            <file>file:/C:/Users/leomi/Documents/GitHub/Proyecto-BDD---SQL-Server/src/Fuentes/CentroDeTrabajo.java</file>
         </group>
     </open-files>
 </project-private>

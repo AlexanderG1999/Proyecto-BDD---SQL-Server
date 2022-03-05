@@ -96,14 +96,16 @@ public class Departamento {
                         //+ "begin distributed transaction\n"
                         + "UPDATE vista_departamento SET "
                         + "DEP_NOMBRE='" + this.depNombre + "',"
-                        + "DEP_PERSUPANUAL=" + this.depPresuAnual + " "
+                        + "DEP_PRESUPANUAL=" + this.depPresuAnual + " "
                         + "WHERE DEP_CODIGO = " + valor);
                         //+ "commit transaction");
+                System.out.println(this.CT_Codigo+" "+this.depCodigo+" "+this.depNombre +" "+ this.depPresuAnual);
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro Actualizado.", "Mensaje", JOptionPane.DEFAULT_OPTION);
                 resultado = true;
 
             } catch (SQLException ex) {
+                System.out.println(ex);
                 JOptionPane.showMessageDialog(null, "NO se logro actualizar el registro.", "Mensaje", JOptionPane.DEFAULT_OPTION);
             }
         } else {

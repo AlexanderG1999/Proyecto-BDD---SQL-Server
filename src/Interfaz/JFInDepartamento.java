@@ -494,7 +494,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         this.JTFCodDep.setEnabled(true);
         this.JTFPresupAnual.setEnabled(true);
         this.JBSearchCodCT.setEnabled(true);
-
+        this.JTFCodDep.requestFocus();
     }//GEN-LAST:event_JBNuevoRegActionPerformed
 
     private void JTFPresupAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFPresupAnualActionPerformed
@@ -518,7 +518,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
             }
         } else {//AuxBoton = 2 es decir modificar
             //Cuando el usuario verifica que SI desea guardar
-            if (dt.modificarDepartamento(CT_Codigo, cn)) {
+            if (dt.modificarDepartamento(DEP_Codigo, cn)) {
                 this.opcionAgain();
                 //Cuando el usuario verifica que NO desea guardar  
             } else {
@@ -532,7 +532,6 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBCancelarCambiosActionPerformed
 
     private void JBBorrarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBorrarRegActionPerformed
-        auxiliarBoton = 2;
         int fila = JTableDep.getSelectedRow();
         if (fila >= 0) {
             int valor = Integer.parseInt(JTableDep.getValueAt(fila, 0).toString());
