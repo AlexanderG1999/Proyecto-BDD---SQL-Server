@@ -670,7 +670,7 @@ public class JFInEmpleado extends javax.swing.JInternalFrame {
             this.JTFNumCedEmp.setEnabled(false);
             this.JTFNumHijos.setEnabled(false);
             this.JTFTelef.setEnabled(false);
-            this.JBSearchDep.setEnabled(true);
+            this.JBSearchDep.setEnabled(false);
             this.JTFSalario.setEnabled(false);
             this.JDCFechaContra.setEnabled(false);
             this.JBSearchCT.setEnabled(false);

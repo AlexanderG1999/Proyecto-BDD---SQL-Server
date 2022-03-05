@@ -414,6 +414,8 @@ public class JFInCT extends javax.swing.JInternalFrame {
         this.JTFNomCT.setEnabled(true);
         this.JTFDireccion.setEnabled(true);
         this.JBSearchJefe.setEnabled(true);
+        
+        this.JTFCodCentro.requestFocus();
 
     }//GEN-LAST:event_JBNuevoRegActionPerformed
 

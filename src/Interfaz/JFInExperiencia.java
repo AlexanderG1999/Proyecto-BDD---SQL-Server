@@ -387,8 +387,8 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jSplitPane2.setRightComponent(JPanelPrincipal);
@@ -510,11 +510,11 @@ public class JFInExperiencia extends javax.swing.JInternalFrame {
             this.JBModificarReg.setEnabled(false);
             this.JBBorrarReg.setEnabled(false);
 
-            this.JBGuardarCambios.setEnabled(false);
-            this.JBCancelarCambios.setEnabled(false);
+            this.JBGuardarCambios.setEnabled(true);
+            this.JBCancelarCambios.setEnabled(true);
             this.JTFCedulaBuscador.setEnabled(true);
 
-            this.JBSearchCT.setEnabled(true);
+            this.JBSearchCT.setEnabled(false);
             this.JBSearchCodArea.setEnabled(true);
             this.JBSearchNumCedEmp.setEnabled(false);
 
