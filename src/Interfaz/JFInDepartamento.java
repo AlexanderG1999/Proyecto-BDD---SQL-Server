@@ -25,7 +25,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         this.JBGuardarCambios.setEnabled(false);
         this.JBCancelarCambios.setEnabled(false);
 
-        this.JTFCodCT.setEnabled(false);
+        JTFCodCT.setEnabled(false);
         this.JTFCodDep.setEnabled(false);
         this.JTFNomDep.setEnabled(false);
         this.JTFPresupAnual.setEnabled(false);
@@ -78,7 +78,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         this.JBGuardarCambios.setEnabled(false);
         this.JBCancelarCambios.setEnabled(false);
 
-        this.JTFCodCT.setEnabled(false);
+        JTFCodCT.setEnabled(false);
         this.JTFCodDep.setEnabled(false);
         this.JTFNomDep.setEnabled(false);
         this.JTFPresupAnual.setEnabled(false);
@@ -489,7 +489,7 @@ public class JFInDepartamento extends javax.swing.JInternalFrame {
         this.JBGuardarCambios.setEnabled(true);
         this.JBCancelarCambios.setEnabled(true);
 
-        this.JTFCodCT.setEnabled(true);
+        JTFCodCT.setEnabled(false);
         this.JTFNomDep.setEnabled(true);
         this.JTFCodDep.setEnabled(true);
         this.JTFPresupAnual.setEnabled(true);

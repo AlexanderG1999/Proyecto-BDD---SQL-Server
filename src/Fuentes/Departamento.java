@@ -99,7 +99,7 @@ public class Departamento {
                         + "DEP_PRESUPANUAL=" + this.depPresuAnual + " "
                         + "WHERE DEP_CODIGO = " + valor);
                         //+ "commit transaction");
-                System.out.println(this.CT_Codigo+" "+this.depCodigo+" "+this.depNombre +" "+ this.depPresuAnual);
+                
                 pps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Registro Actualizado.", "Mensaje", JOptionPane.DEFAULT_OPTION);
                 resultado = true;
