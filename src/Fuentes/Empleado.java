@@ -123,7 +123,7 @@ public class Empleado {
                         //+ "begin distributed transaction "
                         + "insert into vista_empleado values (" + this.numCedula + "," + this.CT_Codigo + "," + this.depCodigo
                         + ",'" + this.nombre + "'" + "," + this.numHijos + "," + this.numTelefono + ") ";
-                        //+ "commit transaction";
+                //+ "commit transaction";
 
                 String querry2 = "INSERT INTO [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS "
                         + "values (" + this.numCedula + "," + this.salario + ",'" + this.fechaContrato + "')";
@@ -159,7 +159,7 @@ public class Empleado {
                         + "EMP_NUMHIJOS=" + this.numHijos + ","
                         + "EMP_TELEFONO=" + this.numTelefono + " "
                         + "WHERE EMP_CEDULA = " + valor);
-                        //+ "commit transaction");
+                //+ "commit transaction");
 
                 PreparedStatement pps2 = cn.prepareStatement("UPDATE [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS SET "
                         + "EMP_SALARIO=" + this.salario + ","
@@ -191,9 +191,10 @@ public class Empleado {
                 PreparedStatement pps1 = cn.prepareStatement("set xact_abort on\n"
                         //+ "begin distributed transaction\n"
                         + "DELETE FROM vista_empleado where EMP_CEDULA=" + valor);
-                        //+ "commit transaction");
+                //+ "commit transaction");
 
-                PreparedStatement pps2 = cn.prepareStatement("DELETE FROM [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS where EMP_CEDULA=" + valor);
+                PreparedStatement pps2 = cn.prepareStatement("DELETE FROM [ALEXANDER].Proyecto_Sucursal_Quito.dbo.NOMINAS_EMPLEADOS "
+                        + "where EMP_CEDULA=" + valor);
 
                 pps1.executeUpdate();
                 pps2.executeUpdate();

@@ -44,7 +44,7 @@ public class JFInHijo extends javax.swing.JInternalFrame {
     //Se extrae lo que tenemos en la base de datos de la tabla HIJO
     public void cargar(String valor) {
         //Titulos de cada Cl y Fl
-        String[] titulos = {"CÓDIGO", "CÓDIGO CENTRO", "NÚM. CÉDULA TUTOR", "NOMBRE HIJO", "FECHA DE NACIMIENTO"};
+        String[] titulos = {"CÓDIGO HIJO", "CÓDIGO CENTRO", "NÚM. CÉDULA TUTOR", "NOMBRE HIJO", "FECHA DE NACIMIENTO"};
         String[] registros = new String[5];
 
         String querry = "SELECT * FROM vista_hijos where HIJO_CODIGO LIKE '%" + valor + "%' "
